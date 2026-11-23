@@ -27,3 +27,6 @@ final class Urenregel: NSManagedObject {
         setPrimitiveValue(nu, forKey: "gewijzigd")
     }
 }
+
+// Expliciet nodig: met de huidige SDK conformeert NSManagedObject niet zelf aan Identifiable (id = ObjectIdentifier).
+extension Urenregel: Identifiable {}

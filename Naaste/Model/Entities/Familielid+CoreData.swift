@@ -33,3 +33,6 @@ extension Familielid {
     var urenregelsLijst: [Urenregel] { (urenregels as? Set<Urenregel>).map(Array.init) ?? [] }
     var zakenLijst: [Zaak] { (zaken as? Set<Zaak>).map(Array.init) ?? [] }
 }
+
+// Expliciet nodig: met de huidige SDK conformeert NSManagedObject niet zelf aan Identifiable (id = ObjectIdentifier).
+extension Familielid: Identifiable {}

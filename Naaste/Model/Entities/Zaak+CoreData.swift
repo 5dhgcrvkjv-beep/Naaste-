@@ -39,3 +39,6 @@ extension Zaak {
     var gebeurtenissenLijst: [ZaakGebeurtenis] { (gebeurtenissen as? Set<ZaakGebeurtenis>).map(Array.init) ?? [] }
     var herinneringenLijst: [Herinnering] { (herinneringen as? Set<Herinnering>).map(Array.init) ?? [] }
 }
+
+// Expliciet nodig: met de huidige SDK conformeert NSManagedObject niet zelf aan Identifiable (id = ObjectIdentifier).
+extension Zaak: Identifiable {}

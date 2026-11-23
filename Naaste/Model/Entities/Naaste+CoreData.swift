@@ -53,3 +53,6 @@ extension Naaste {
     var herinneringenLijst: [Herinnering] { (herinneringen as? Set<Herinnering>).map(Array.init) ?? [] }
     var familieledenLijst: [Familielid] { (familieleden as? Set<Familielid>).map(Array.init) ?? [] }
 }
+
+// Expliciet nodig: met de huidige SDK conformeert NSManagedObject niet zelf aan Identifiable (id = ObjectIdentifier).
+extension Naaste: Identifiable {}

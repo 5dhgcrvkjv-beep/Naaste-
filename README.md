@@ -34,6 +34,10 @@ Vóór de eerste build op een echte iPhone:
   ```
 - Datamodel, voorbeeld-data en PDF in Xcode: **⌘U** (target `NaasteTests`, Swift Testing).
 
+Alleen in Debug-builds (handig voor screenshots):
+`xcrun simctl launch booted nl.naaste.app -laadVoorbeeld -startTab documenten`
+laadt de voorbeeld-naaste en opent direct een tabblad (`overzicht`, `documenten`, `zaken`, `taken`, `instellingen`).
+
 ## Structuur
 
 ```

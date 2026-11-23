@@ -27,3 +27,6 @@ final class ZaakGebeurtenis: NSManagedObject {
         setPrimitiveValue(nu, forKey: "gewijzigd")
     }
 }
+
+// Expliciet nodig: met de huidige SDK conformeert NSManagedObject niet zelf aan Identifiable (id = ObjectIdentifier).
+extension ZaakGebeurtenis: Identifiable {}

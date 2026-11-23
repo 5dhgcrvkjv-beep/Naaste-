@@ -1,3 +1,4 @@
+import CoreData
 import SwiftUI
 
 @main
@@ -35,6 +36,11 @@ struct RootView: View {
         }
         .task {
             app.entitlements.start()
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("-laadVoorbeeld") {
+                app.laadVoorbeeld()
+            }
+            #endif
         }
         .onChange(of: app.isPlus) {
             app.werkEigenaarStatusBij()
@@ -50,25 +56,43 @@ struct RootView: View {
     }
 }
 
+enum HoofdTab: String, Hashable {
+    case overzicht, documenten, zaken, taken, instellingen
+}
+
 struct RootTabView: View {
+    @State private var tab: HoofdTab = Self.starttab
+
     var body: some View {
-        TabView {
-            Tab("Overzicht", systemImage: "house") {
+        TabView(selection: $tab) {
+            Tab("Overzicht", systemImage: "house", value: .overzicht) {
                 OverzichtView()
             }
-            Tab("Documenten", systemImage: "doc.text") {
+            Tab("Documenten", systemImage: "doc.text", value: .documenten) {
                 DocumentenView()
             }
-            Tab("Zaken", systemImage: "folder") {
+            Tab("Zaken", systemImage: "folder", value: .zaken) {
                 ZakenView()
             }
-            Tab("Taken", systemImage: "checklist") {
+            Tab("Taken", systemImage: "checklist", value: .taken) {
                 TakenView()
             }
-            Tab("Instellingen", systemImage: "gearshape") {
+            Tab("Instellingen", systemImage: "gearshape", value: .instellingen) {
                 InstellingenView()
             }
         }
+    }
+
+    /// Alleen in DEBUG: `-startTab zaken` opent direct een tabblad (handig voor screenshots).
+    private static var starttab: HoofdTab {
+        #if DEBUG
+        let args = ProcessInfo.processInfo.arguments
+        if let i = args.firstIndex(of: "-startTab"), i + 1 < args.count,
+           let tab = HoofdTab(rawValue: args[i + 1]) {
+            return tab
+        }
+        #endif
+        return .overzicht
     }
 }
 

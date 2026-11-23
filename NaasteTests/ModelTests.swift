@@ -1,4 +1,5 @@
 import CoreData
+import CoreGraphics
 import NaasteKit
 import Testing
 @testable import NaasteApp

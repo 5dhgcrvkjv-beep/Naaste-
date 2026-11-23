@@ -336,9 +336,9 @@ struct NaasteWisselaar: View {
         }
         .accessibilityLabel("Kies naaste")
         .sheet(isPresented: $nieuweNaaste) {
-            NaasteBewerkenView(modus: .nieuw) { naaste in
+            NaasteBewerkenView(modus: .nieuw, opgeslagen: { naaste in
                 geselecteerdeID = naaste.uuid?.uuidString ?? ""
-            }
+            })
         }
     }
 
@@ -384,9 +384,9 @@ struct GeenNaasteView: View {
             .buttonStyle(.bordered)
         }
         .sheet(isPresented: $nieuweNaaste) {
-            NaasteBewerkenView(modus: .nieuw) { naaste in
+            NaasteBewerkenView(modus: .nieuw, opgeslagen: { naaste in
                 geselecteerdeID = naaste.uuid?.uuidString ?? ""
-            }
+            })
         }
     }
 }

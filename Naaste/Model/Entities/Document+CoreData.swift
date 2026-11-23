@@ -36,3 +36,6 @@ final class Document: NSManagedObject {
 extension Document {
     var zakenLijst: [Zaak] { (zaken as? Set<Zaak>).map(Array.init) ?? [] }
 }
+
+// Expliciet nodig: met de huidige SDK conformeert NSManagedObject niet zelf aan Identifiable (id = ObjectIdentifier).
+extension Document: Identifiable {}
