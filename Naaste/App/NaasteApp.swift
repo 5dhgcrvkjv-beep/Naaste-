@@ -3,6 +3,7 @@ import SwiftUI
 
 @main
 struct NaasteApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var app: AppModel
 
     init() {
@@ -22,6 +23,7 @@ struct NaasteApp: App {
 struct RootView: View {
     @Environment(AppModel.self) private var app
     @Environment(\.scenePhase) private var scenePhase
+    @State private var geaccepteerd: String?
 
     var body: some View {
         @Bindable var app = app
@@ -48,6 +50,19 @@ struct RootView: View {
         // Wijzigingen van familieleden (via iCloud) of een nieuwe dag: meldingen opnieuw plannen.
         .onReceive(NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange)) { _ in
             app.planMeldingen()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .deelUitnodigingGeaccepteerd)) { bericht in
+            let titel = bericht.object as? String ?? String(localized: "de zorgmap")
+            app.foutmelding = nil
+            geaccepteerd = String(localized: "Je doet nu mee met \(titel). Kies de naaste via het menu rechtsboven in Overzicht.")
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .deelUitnodigingMislukt)) { _ in
+            app.foutmelding = String(localized: "De uitnodiging kon niet worden geopend. Controleer of je bent ingelogd bij iCloud en internet hebt, en open de link opnieuw.")
+        }
+        .alert("Welkom", isPresented: Binding(get: { geaccepteerd != nil }, set: { if !$0 { geaccepteerd = nil } })) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(geaccepteerd ?? "")
         }
         .onChange(of: scenePhase) { _, fase in
             if fase == .active { app.planMeldingen() }

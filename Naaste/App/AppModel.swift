@@ -25,6 +25,7 @@ final class AppModel {
     let persistence: PersistenceController
     let entitlements: EntitlementStore
     let meldingen: Meldingen
+    let delen: Delen
 
     var paywall: PaywallAanleiding?
     var foutmelding: String?
@@ -33,6 +34,7 @@ final class AppModel {
         self.persistence = persistence
         self.entitlements = entitlements
         self.meldingen = meldingen ?? Meldingen()
+        self.delen = Delen(persistence: persistence)
     }
 
     var context: NSManagedObjectContext { persistence.viewContext }

@@ -47,7 +47,7 @@ NaasteKit/                  platformonafhankelijke logica + tests (Swift Package
 Naaste/
   App/                      app-start, tabbladen, AppModel, links
   Model/                    Core Data-model (CloudKit), opslag, queries, voorbeeld-data
-  Services/                 Store (StoreKit 2), PDF, Documenten (scanner, tekstherkenning), Herinneringen (lokale meldingen), (straks) Sharing
+  Services/                 Store (StoreKit 2), PDF, Documenten (scanner, tekstherkenning), Herinneringen (lokale meldingen), Delen (CloudKit-sharing)
   Features/                 schermen per functie
   DesignSystem/             gedeelde componenten
   Resources/                Info.plist, String Catalog, Privacy Manifest, StoreKit-config, assets
@@ -55,6 +55,18 @@ NaasteTests/                tests op het datamodel
 site/                       privacybeleid en voorwaarden (GitHub Pages)
 appstore/                   App Store-teksten, privacy-labels, review notes, checklist
 ```
+
+## Delen testen
+
+Delen werkt niet in de simulator zonder iCloud-account. Testen kan zo:
+
+1. Twee iPhones (of een iPhone en een simulator) met **verschillende** Apple ID's, beide ingelogd bij iCloud.
+2. Op toestel A: eigen naaste → Instellingen → Delen met familie → Familielid uitnodigen → stuur via Berichten.
+3. Op toestel B: open de link → Naaste opent en accepteert. Kies de naaste via het menu in Overzicht.
+4. Wijzig iets op B en controleer dat het op A verschijnt (kan even duren).
+5. Op B: Delen met familie → Deze zorgmap verlaten. Op A: Rechten wijzigen of stoppen met delen.
+
+Na een wijziging in het datamodel: in het CloudKit Dashboard het schema van Development naar Production zetten vóór de App Store-release.
 
 ## Waarom Core Data en niet SwiftData?
 
@@ -71,7 +83,7 @@ CloudKit-database niet; `NSPersistentCloudKitContainer` wel (privé- én gedeeld
 | 3 | Documenten: scannen, PDF-import, mappen, tekstherkenning, zoeken | ✅ |
 | 4 | Zaken met tijdlijn, herinneringen en notificaties | ✅ |
 | 5 | Taken en urenlogboek | ✅ |
-| 6 | Delen via CloudKit, stoppen met delen, alle gegevens wissen | ⏳ |
+| 6 | Delen via CloudKit, stoppen met delen, alle gegevens wissen | ✅ (code; testen op 2 toestellen nodig) |
 | 8 | PDF-exports (uren, overdracht) | ⏳ |
 | 9 | Onboarding, toegankelijkheid, laatste controle | ⏳ |
 | 10 | App Store-teksten, site, privacy-labels, review notes, checklist | ⏳ |
