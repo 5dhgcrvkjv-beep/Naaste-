@@ -199,9 +199,12 @@ enum VoorbeeldData {
         document.titel = titel
         document.categorieWaarde = categorie
         document.documentDatum = datum
-        document.bestand = opmaak.maakPDF(titelMetadata: titel)
+        let pdf = opmaak.maakPDF(titelMetadata: titel)
+        document.bestand = pdf
         document.bestandsnaam = "\(titel).pdf"
-        document.paginas = 1
+        let basis = try? DocumentAnalyse.basis(van: pdf)
+        document.paginas = Int16(clamping: basis?.paginas ?? 1)
+        document.miniatuur = basis?.miniatuur
         document.ocrTekst = regels.joined(separator: "\n")
         document.ocrStatusWaarde = .klaar
         document.naaste = naaste

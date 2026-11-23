@@ -1,7 +1,734 @@
 {
   "sourceLanguage" : "nl",
   "strings" : {
+    ", de eerste %@ gratis" : {
 
+    },
+    "%@ (voorbeeld)" : {
+
+    },
+    "%@: %@ per %@" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@: %2$@ per %3$@"
+          }
+        }
+      }
+    },
+    "%lld dagen" : {
+
+    },
+    "%lld dagen geleden" : {
+
+    },
+    "%lld jaar" : {
+
+    },
+    "%lld maanden" : {
+
+    },
+    "%lld min" : {
+
+    },
+    "%lld u" : {
+
+    },
+    "%lld u %lld min" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld u %2$lld min"
+          }
+        }
+      }
+    },
+    "%lld weken" : {
+
+    },
+    "1 naaste, %lld documenten, delen met 1 persoon en het overdrachtsoverzicht." : {
+
+    },
+    "Aangevraagd" : {
+
+    },
+    "Aankopen herstellen" : {
+
+    },
+    "Abonnement" : {
+
+    },
+    "Abonnement beheren of opzeggen" : {
+
+    },
+    "Administratie" : {
+
+    },
+    "Adres" : {
+
+    },
+    "Afgerond" : {
+
+    },
+    "Afgewezen" : {
+
+    },
+    "Afspraak" : {
+
+    },
+    "Alleen een notitie voor de familie. Naaste geeft geen medisch advies." : {
+
+    },
+    "Alles wat nergens anders past" : {
+
+    },
+    "Annuleer" : {
+
+    },
+    "Bank" : {
+
+    },
+    "Bank, belasting, toeslagen" : {
+
+    },
+    "Bekijk eerst een voorbeeld" : {
+
+    },
+    "Bekijk Naaste Plus" : {
+
+    },
+    "Bel %@" : {
+
+    },
+    "Bel de huisarts" : {
+
+    },
+    "Bel de zorgverzekeraar" : {
+
+    },
+    "Betaling" : {
+
+    },
+    "Bewaar" : {
+
+    },
+    "Bezwaar" : {
+
+    },
+    "Bijvoorbeeld bereikbaar op werkdagen 9–12 uur" : {
+
+    },
+    "Bijvoorbeeld sleutel, gewoontes, aandachtspunten" : {
+
+    },
+    "Bijvoorbeeld thuiszorg, wijkverpleging, casemanager, het Wmo-loket van de gemeente, de notaris of de bank." : {
+
+    },
+    "Bijvoorbeeld waar het medicijnoverzicht ligt" : {
+
+    },
+    "Binnenkort" : {
+
+    },
+    "Blauw" : {
+
+    },
+    "Bruin" : {
+
+    },
+    "CAK" : {
+
+    },
+    "Casemanager" : {
+
+    },
+    "Contactpersonen" : {
+
+    },
+    "Contactpersoon toevoegen" : {
+
+    },
+    "Contactpersoon verwijderen" : {
+
+    },
+    "Contactpersoon verwijderen?" : {
+
+    },
+    "dag" : {
+
+    },
+    "Dan zie je je eigen taken bovenaan en worden nieuwe uren aan jou toegeschreven. Dit wordt alleen op deze iPhone bewaard." : {
+
+    },
+    "De abonnementen konden niet worden geladen. Controleer je internetverbinding en probeer het opnieuw." : {
+
+    },
+    "De abonnementen zijn nu niet beschikbaar. Controleer je internetverbinding en probeer het later opnieuw." : {
+
+    },
+    "Delen met de hele familie" : {
+
+    },
+    "Dit e-mailadres lijkt niet volledig." : {
+
+    },
+    "Dit is een voorbeeld" : {
+
+    },
+    "Dit is een voorbeelddocument in de app Naaste. Het bevat verzonnen gegevens." : {
+
+    },
+    "Dit kan niet ongedaan worden gemaakt." : {
+
+    },
+    "Document zonder titel" : {
+
+    },
+    "Documenten" : {
+
+    },
+    "Dossiers met tijdlijn volgen in een volgende bouwstap." : {
+
+    },
+    "E-mail" : {
+
+    },
+    "Een voorbeeld met verzonnen gegevens om alle functies te bekijken. Telt niet mee voor de gratis limieten." : {
+
+    },
+    "Een vrije notitie voor de familie. Naaste geeft geen medisch advies en controleert niets." : {
+
+    },
+    "Eerst met de casemanager bespreken. Gegevens van huisarts en thuiszorg verzamelen." : {
+
+    },
+    "Eigen bijdrage" : {
+
+    },
+    "Elk jaar" : {
+
+    },
+    "Elk kwartaal" : {
+
+    },
+    "Elke maand" : {
+
+    },
+    "Elke week" : {
+
+    },
+    "En nog %lld andere in het tabblad Taken." : {
+
+    },
+    "En nog %lld andere in het tabblad Zaken." : {
+
+    },
+    "Er ging iets mis" : {
+
+    },
+    "Er is geen actief abonnement gevonden voor deze Apple ID." : {
+
+    },
+    "Er lopen geen zaken. Leg een aanvraag vast in het tabblad Zaken." : {
+
+    },
+    "Familie" : {
+
+    },
+    "Familie of buren" : {
+
+    },
+    "Familie van %@" : {
+
+    },
+    "Familieleden" : {
+
+    },
+    "Familieleden zijn naamkaartjes voor taken en uren. Je hebt geen account nodig." : {
+
+    },
+    "Familielid" : {
+
+    },
+    "Familielid toevoegen" : {
+
+    },
+    "Financiën" : {
+
+    },
+    "Geboortedatum" : {
+
+    },
+    "Geboortedatum invullen" : {
+
+    },
+    "Gebruiksvoorwaarden" : {
+
+    },
+    "Geen deadlines of afspraken in de komende 2 maanden." : {
+
+    },
+    "Geen open taken." : {
+
+    },
+    "Gegevens niet beschikbaar" : {
+
+    },
+    "Gemeente / Wmo-loket" : {
+
+    },
+    "Gemeente: hulp in huis, hulpmiddelen, vervoer" : {
+
+    },
+    "Gezelschap" : {
+
+    },
+    "Gezinsdeling: deel Plus met je gezin" : {
+
+    },
+    "gisteren" : {
+
+    },
+    "Gratis deel je met 1 persoon. Met Plus doet de hele familie mee." : {
+
+    },
+    "Gratis versie" : {
+
+    },
+    "Grijs" : {
+
+    },
+    "Groen" : {
+
+    },
+    "Herindicatie" : {
+
+    },
+    "Herinnering" : {
+
+    },
+    "Herstellen is niet gelukt. Controleer je internetverbinding en probeer het opnieuw." : {
+
+    },
+    "Het abonnement wordt automatisch verlengd voor dezelfde periode en prijs, tenzij je het uiterlijk 24 uur voor het einde van de lopende periode opzegt. Na een gratis proefperiode wordt het abonnementsbedrag in rekening gebracht, tenzij je vóór het einde van de proef opzegt. De betaling loopt via je Apple ID." : {
+
+    },
+    "Huisarts" : {
+
+    },
+    "Huishouden" : {
+
+    },
+    "Hulp en contact" : {
+
+    },
+    "Huur, aanpassingen, verhuizing" : {
+
+    },
+    "Ik" : {
+
+    },
+    "Ik ben" : {
+
+    },
+    "In behandeling" : {
+
+    },
+    "In de gratis versie zorg je voor 1 naaste. Met Plus voeg je er zoveel toe als je wilt." : {
+
+    },
+    "Instellingen" : {
+
+    },
+    "jaar" : {
+
+    },
+    "Je abonnement is hersteld. Naaste Plus is actief." : {
+
+    },
+    "Je gegevens staan alleen op je iPhone en in je eigen iCloud, en bij familieleden met wie je deelt. Naaste heeft geen eigen server, verzamelt geen gegevens en gebruikt geen tracking." : {
+
+    },
+    "Je hebt de %lld gratis documenten gebruikt. Met Plus bewaar je onbeperkt documenten." : {
+
+    },
+    "Je wijziging kon niet worden opgeslagen. Probeer het opnieuw. Blijft dit gebeuren, controleer dan of er genoeg opslagruimte vrij is op je iPhone." : {
+
+    },
+    "Juridisch en volmachten" : {
+
+    },
+    "Keukentafelgesprek gehad met consulent van de gemeente. Beslissing binnen 8 weken na de melding." : {
+
+    },
+    "Kies naaste" : {
+
+    },
+    "Kleur" : {
+
+    },
+    "Kopieer %@" : {
+
+    },
+    "Langdurige zorg en indicatie van het CIZ" : {
+
+    },
+    "Leg de gegevens vast van de persoon voor wie je zorgt. Daarna kun je documenten, aanvragen en taken bijhouden, samen met je familie." : {
+
+    },
+    "Loopt tot %@ en wordt automatisch verlengd, tenzij je opzegt." : {
+
+    },
+    "Lopende zaken" : {
+
+    },
+    "maand" : {
+
+    },
+    "Mail %@" : {
+
+    },
+    "Markeer als gedaan" : {
+
+    },
+    "Markeer als niet gedaan" : {
+
+    },
+    "Medicatie (notitie)" : {
+
+    },
+    "Medicijnoverzicht staat in de blauwe map in de keukenla. Weekdoos wordt op zondag gevuld door de thuiszorg." : {
+
+    },
+    "Met het urenlogboek zie je wie hoeveel tijd besteedt, handig voor de verdeling en de mantelzorgwaardering van je gemeente." : {
+
+    },
+    "Met Plus krijg je alle functies van Naaste." : {
+
+    },
+    "morgen" : {
+
+    },
+    "Naam" : {
+
+    },
+    "Naam praktijk of huisarts" : {
+
+    },
+    "Naamloos" : {
+
+    },
+    "naaste" : {
+
+    },
+    "Naaste" : {
+
+    },
+    "Naaste kan je gegevens nu niet openen. Maak wat opslagruimte vrij op je iPhone en start de app opnieuw. Je gegevens in iCloud blijven bewaard." : {
+
+    },
+    "Naaste Plus" : {
+
+    },
+    "Naaste Plus is actief" : {
+
+    },
+    "Naaste toevoegen" : {
+
+    },
+    "Naaste verwijderen" : {
+
+    },
+    "Naaste verwijderen?" : {
+
+    },
+    "Niet gekozen" : {
+
+    },
+    "Niet herhalen" : {
+
+    },
+    "Niet toegewezen" : {
+
+    },
+    "Nieuw familielid" : {
+
+    },
+    "Nieuwe contactpersoon" : {
+
+    },
+    "Nieuwe naaste" : {
+
+    },
+    "Nog niet ingevuld." : {
+
+    },
+    "Notaris" : {
+
+    },
+    "Notitie" : {
+
+    },
+    "Notities" : {
+
+    },
+    "OK" : {
+
+    },
+    "Onbeperkt naasten en documenten" : {
+
+    },
+    "Op deze iPhone" : {
+
+    },
+    "Open in Kaarten" : {
+
+    },
+    "Open taken" : {
+
+    },
+    "Opent het profiel met adres, huisarts, verzekering en contactpersonen." : {
+
+    },
+    "Opzeggen kan altijd: in de app via Instellingen › Abonnement beheren, of in de iPhone-app Instellingen › [je naam] › Abonnementen." : {
+
+    },
+    "Oranje" : {
+
+    },
+    "Organisatie" : {
+
+    },
+    "over %lld dagen" : {
+
+    },
+    "Over Naaste" : {
+
+    },
+    "Overig" : {
+
+    },
+    "Overzicht" : {
+
+    },
+    "Paars" : {
+
+    },
+    "Pagina %lld" : {
+
+    },
+    "periode" : {
+
+    },
+    "Persoonlijk" : {
+
+    },
+    "Persoonlijke verzorging" : {
+
+    },
+    "Persoonsgebonden budget" : {
+
+    },
+    "Pgb" : {
+
+    },
+    "Plaats" : {
+
+    },
+    "Polisnummer" : {
+
+    },
+    "Postcode" : {
+
+    },
+    "Praktijk" : {
+
+    },
+    "Privacy" : {
+
+    },
+    "Privacybeleid" : {
+
+    },
+    "Probeer alles gerust uit. Voeg je eigen naaste toe via het menu rechtsboven; het voorbeeld verwijder je in Instellingen." : {
+
+    },
+    "Profiel" : {
+
+    },
+    "Profiel en contactpersonen" : {
+
+    },
+    "Rol" : {
+
+    },
+    "Roze" : {
+
+    },
+    "Samen zorgen, zonder gedoe met papieren. Plus geeft je alle ruimte." : {
+
+    },
+    "Scannen, importeren en zoeken volgt in de volgende bouwstap." : {
+
+    },
+    "Sleutelkastje naast de voordeur, code bij Sanne. Mevrouw hoort slecht aan de linkerkant: rustig en duidelijk praten." : {
+
+    },
+    "Snel contact" : {
+
+    },
+    "Straat en huisnummer" : {
+
+    },
+    "Taak zonder titel" : {
+
+    },
+    "Taken" : {
+
+    },
+    "Taken en urenlogboek volgen in een volgende bouwstap." : {
+
+    },
+    "Telefoon" : {
+
+    },
+    "Telefoon huisarts" : {
+
+    },
+    "Telefoon verzekeraar" : {
+
+    },
+    "Thuiszorg" : {
+
+    },
+    "Tik om te wijzigen." : {
+
+    },
+    "Toegekend" : {
+
+    },
+    "Urenlogboek voor de onderlinge verdeling en de mantelzorgwaardering" : {
+
+    },
+    "Urenoverzicht als PDF" : {
+
+    },
+    "vandaag" : {
+
+    },
+    "Verlenging" : {
+
+    },
+    "Versie" : {
+
+    },
+    "Vervoer en begeleiding" : {
+
+    },
+    "Vervolg %@" : {
+
+    },
+    "Vervolgactie" : {
+
+    },
+    "Vervolgactie zaak" : {
+
+    },
+    "Verwijder" : {
+
+    },
+    "Verwijder %@" : {
+
+    },
+    "Verwijder je iemand, dan blijven de taken en uren bestaan, maar zonder naam." : {
+
+    },
+    "Verwijdert ook alle documenten, zaken, taken en uren van deze naaste, op al je apparaten en voor familieleden met wie je deelt." : {
+
+    },
+    "Verzekeraar" : {
+
+    },
+    "Verzekering" : {
+
+    },
+    "Via Gezinsdeling." : {
+
+    },
+    "Voeg contactpersonen toe via het profiel hierboven." : {
+
+    },
+    "Voeg je naaste toe" : {
+
+    },
+    "Volmachten, mentorschap, testament" : {
+
+    },
+    "Voorbeeld" : {
+
+    },
+    "Voorbeeld-naaste tonen" : {
+
+    },
+    "Voorbeeld-naaste verwijderen" : {
+
+    },
+    "Voorbeelddocument – niet echt" : {
+
+    },
+    "Voorbereiden" : {
+
+    },
+    "week" : {
+
+    },
+    "Wijkverpleging" : {
+
+    },
+    "Wijzig" : {
+
+    },
+    "Wijzig contactpersoon" : {
+
+    },
+    "Wijzig familielid" : {
+
+    },
+    "Wijzig gegevens" : {
+
+    },
+    "Wlz / CIZ" : {
+
+    },
+    "Wmo" : {
+
+    },
+    "Wonen" : {
+
+    },
+    "Zaak zonder titel" : {
+
+    },
+    "Zaken" : {
+
+    },
+    "Zo werkt het abonnement" : {
+
+    },
+    "Zonder abonnement blijft Naaste gratis te gebruiken: 1 naaste, 15 documenten, delen met 1 persoon en het overdrachtsoverzicht." : {
+
+    },
+    "Zorgverzekeraar" : {
+
+    },
+    "Zorgverzekering" : {
+
+    },
+    "Zorgverzekering en andere polissen" : {
+
+    }
   },
   "version" : "1.0"
 }

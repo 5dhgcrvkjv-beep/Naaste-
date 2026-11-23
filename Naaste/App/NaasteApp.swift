@@ -36,6 +36,7 @@ struct RootView: View {
         }
         .task {
             app.entitlements.start()
+            app.herkenOpenstaandeDocumenten()
             #if DEBUG
             if ProcessInfo.processInfo.arguments.contains("-laadVoorbeeld") {
                 app.laadVoorbeeld()

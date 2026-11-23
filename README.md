@@ -46,7 +46,7 @@ NaasteKit/                  platformonafhankelijke logica + tests (Swift Package
 Naaste/
   App/                      app-start, tabbladen, AppModel, links
   Model/                    Core Data-model (CloudKit), opslag, queries, voorbeeld-data
-  Services/                 Store (StoreKit 2), PDF, (straks) Sharing, Reminders, OCR, Scanner
+  Services/                 Store (StoreKit 2), PDF, Documenten (scanner, tekstherkenning), (straks) Sharing, Reminders
   Features/                 schermen per functie
   DesignSystem/             gedeelde componenten
   Resources/                Info.plist, String Catalog, Privacy Manifest, StoreKit-config, assets
@@ -67,7 +67,7 @@ CloudKit-database niet; `NSPersistentCloudKitContainer` wel (privé- én gedeeld
 | 1 | Project, datamodel, opslag, voorbeeld-data, tests | ✅ |
 | 2 | Overzicht, profiel, contactpersonen (bellen/mailen), familieleden | ✅ |
 | 7 | StoreKit 2, paywall, limieten, Instellingen-abonnement | ✅ (vroeg gebouwd, alle functies gebruiken het) |
-| 3 | Documenten: scannen, PDF-import, mappen, tekstherkenning, zoeken | ⏳ |
+| 3 | Documenten: scannen, PDF-import, mappen, tekstherkenning, zoeken | ✅ |
 | 4 | Zaken met tijdlijn, herinneringen en notificaties | ⏳ |
 | 5 | Taken en urenlogboek | ⏳ |
 | 6 | Delen via CloudKit, stoppen met delen, alle gegevens wissen | ⏳ |

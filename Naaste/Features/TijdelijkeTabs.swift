@@ -1,18 +1,7 @@
 import SwiftUI
 
 // TIJDELIJK: deze tabbladen worden in de volgende bouwfasen vervangen
-// (fase 3 Documenten, fase 4 Zaken, fase 5 Taken). Dit bestand gaat dan weg.
-
-struct DocumentenView: View {
-    var body: some View {
-        NavigationStack {
-            MetGeselecteerdeNaaste { _ in
-                ContentUnavailableView("Documenten", systemImage: "doc.text", description: Text("Scannen, importeren en zoeken volgt in de volgende bouwstap."))
-            }
-            .navigationTitle("Documenten")
-        }
-    }
-}
+// (fase 4 Zaken, fase 5 Taken). Dit bestand gaat dan weg.
 
 struct ZakenView: View {
     var body: some View {
