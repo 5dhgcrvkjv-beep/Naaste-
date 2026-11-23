@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="25A354" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Naaste" representedClassName="Naaste" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="aangemaakt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gewijzigd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="naam" optional="YES" attributeType="String"/>
+        <attribute name="geboortedatum" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="straat" optional="YES" attributeType="String"/>
+        <attribute name="postcode" optional="YES" attributeType="String"/>
+        <attribute name="plaats" optional="YES" attributeType="String"/>
+        <attribute name="telefoon" optional="YES" attributeType="String"/>
+        <attribute name="huisartsNaam" optional="YES" attributeType="String"/>
+        <attribute name="huisartsTelefoon" optional="YES" attributeType="String"/>
+        <attribute name="zorgverzekeraar" optional="YES" attributeType="String"/>
+        <attribute name="polisnummer" optional="YES" attributeType="String"/>
+        <attribute name="verzekeraarTelefoon" optional="YES" attributeType="String"/>
+        <attribute name="medicatieNotitie" optional="YES" attributeType="String"/>
+        <attribute name="notities" optional="YES" attributeType="String"/>
+        <attribute name="isVoorbeeld" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="eigenaarHeeftPlus" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="contacten" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Contactpersoon" inverseName="naaste" inverseEntity="Contactpersoon"/>
+        <relationship name="documenten" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Document" inverseName="naaste" inverseEntity="Document"/>
+        <relationship name="zaken" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Zaak" inverseName="naaste" inverseEntity="Zaak"/>
+        <relationship name="taken" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Taak" inverseName="naaste" inverseEntity="Taak"/>
+        <relationship name="urenregels" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Urenregel" inverseName="naaste" inverseEntity="Urenregel"/>
+        <relationship name="herinneringen" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Herinnering" inverseName="naaste" inverseEntity="Herinnering"/>
+        <relationship name="familieleden" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Familielid" inverseName="naaste" inverseEntity="Familielid"/>
+    </entity>
+    <entity name="Contactpersoon" representedClassName="Contactpersoon" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="aangemaakt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gewijzigd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="rol" optional="YES" attributeType="String"/>
+        <attribute name="naam" optional="YES" attributeType="String"/>
+        <attribute name="organisatie" optional="YES" attributeType="String"/>
+        <attribute name="telefoon" optional="YES" attributeType="String"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="notitie" optional="YES" attributeType="String"/>
+        <relationship name="naaste" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Naaste" inverseName="contacten" inverseEntity="Naaste"/>
+    </entity>
+    <entity name="Familielid" representedClassName="Familielid" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="aangemaakt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gewijzigd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="naam" optional="YES" attributeType="String"/>
+        <attribute name="kleur" optional="YES" attributeType="String"/>
+        <relationship name="naaste" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Naaste" inverseName="familieleden" inverseEntity="Naaste"/>
+        <relationship name="taken" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Taak" inverseName="toegewezenAan" inverseEntity="Taak"/>
+        <relationship name="urenregels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Urenregel" inverseName="familielid" inverseEntity="Urenregel"/>
+        <relationship name="zaken" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Zaak" inverseName="opgepaktDoor" inverseEntity="Zaak"/>
+    </entity>
+    <entity name="Document" representedClassName="Document" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="aangemaakt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gewijzigd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="titel" optional="YES" attributeType="String"/>
+        <attribute name="categorie" optional="YES" attributeType="String"/>
+        <attribute name="documentDatum" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="bestand" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="bestandsnaam" optional="YES" attributeType="String"/>
+        <attribute name="paginas" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="ocrTekst" optional="YES" attributeType="String"/>
+        <attribute name="ocrStatus" optional="YES" attributeType="String"/>
+        <attribute name="miniatuur" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <relationship name="naaste" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Naaste" inverseName="documenten" inverseEntity="Naaste"/>
+        <relationship name="zaken" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Zaak" inverseName="documenten" inverseEntity="Zaak"/>
+    </entity>
+    <entity name="Zaak" representedClassName="Zaak" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="aangemaakt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gewijzigd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="titel" optional="YES" attributeType="String"/>
+        <attribute name="categorie" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="datumAangevraagd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="vervolgdatum" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="vervolgHerinneren" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="notities" optional="YES" attributeType="String"/>
+        <relationship name="naaste" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Naaste" inverseName="zaken" inverseEntity="Naaste"/>
+        <relationship name="opgepaktDoor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Familielid" inverseName="zaken" inverseEntity="Familielid"/>
+        <relationship name="documenten" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Document" inverseName="zaken" inverseEntity="Document"/>
+        <relationship name="gebeurtenissen" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ZaakGebeurtenis" inverseName="zaak" inverseEntity="ZaakGebeurtenis"/>
+        <relationship name="herinneringen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Herinnering" inverseName="zaak" inverseEntity="Herinnering"/>
+    </entity>
+    <entity name="ZaakGebeurtenis" representedClassName="ZaakGebeurtenis" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="aangemaakt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gewijzigd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="datum" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="soort" optional="YES" attributeType="String"/>
+        <attribute name="tekst" optional="YES" attributeType="String"/>
+        <attribute name="nieuweStatus" optional="YES" attributeType="String"/>
+        <attribute name="auteur" optional="YES" attributeType="String"/>
+        <relationship name="zaak" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Zaak" inverseName="gebeurtenissen" inverseEntity="Zaak"/>
+    </entity>
+    <entity name="Herinnering" representedClassName="Herinnering" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="aangemaakt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gewijzigd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="titel" optional="YES" attributeType="String"/>
+        <attribute name="datum" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="heeftTijd" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="soort" optional="YES" attributeType="String"/>
+        <attribute name="herhaling" optional="YES" attributeType="String"/>
+        <attribute name="dagenVooraf" attributeType="Integer 16" defaultValueString="7" usesScalarValueType="YES"/>
+        <attribute name="afgerond" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="notitie" optional="YES" attributeType="String"/>
+        <relationship name="naaste" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Naaste" inverseName="herinneringen" inverseEntity="Naaste"/>
+        <relationship name="zaak" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Zaak" inverseName="herinneringen" inverseEntity="Zaak"/>
+    </entity>
+    <entity name="Taak" representedClassName="Taak" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="aangemaakt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gewijzigd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="titel" optional="YES" attributeType="String"/>
+        <attribute name="notitie" optional="YES" attributeType="String"/>
+        <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="afgerond" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="afgerondOp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="volgorde" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="naaste" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Naaste" inverseName="taken" inverseEntity="Naaste"/>
+        <relationship name="toegewezenAan" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Familielid" inverseName="taken" inverseEntity="Familielid"/>
+    </entity>
+    <entity name="Urenregel" representedClassName="Urenregel" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="aangemaakt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gewijzigd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="datum" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="minuten" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="categorie" optional="YES" attributeType="String"/>
+        <attribute name="omschrijving" optional="YES" attributeType="String"/>
+        <relationship name="naaste" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Naaste" inverseName="urenregels" inverseEntity="Naaste"/>
+        <relationship name="familielid" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Familielid" inverseName="urenregels" inverseEntity="Familielid"/>
+    </entity>
+</model>

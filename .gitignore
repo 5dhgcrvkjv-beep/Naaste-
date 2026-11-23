@@ -1,0 +1,15 @@
+# Xcode
+*.xcodeproj/
+!*.xcodeproj/project.pbxproj
+xcuserdata/
+DerivedData/
+*.xcuserstate
+build/
+# XcodeGen genereert het project; niet inchecken
+Naaste.xcodeproj/
+# SwiftPM
+.build/
+.swiftpm/
+Package.resolved
+# macOS
+.DS_Store

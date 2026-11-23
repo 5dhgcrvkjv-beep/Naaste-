@@ -1,0 +1,88 @@
+# Genereer het Xcode-project met:  brew install xcodegen && xcodegen
+# Daarna: open Naaste.xcodeproj  (Xcode 26, iOS 26 SDK)
+#
+# Pas vóór de eerste build aan:
+#   - DEVELOPMENT_TEAM (je Team ID uit developer.apple.com → Membership)
+#   - eventueel de bundle-ID (ook in Naaste.entitlements en NaasteKit/Entitlements.swift)
+name: Naaste
+options:
+  deploymentTarget:
+    iOS: "18.0"
+  developmentLanguage: nl
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    SWIFT_STRICT_CONCURRENCY: minimal
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+
+packages:
+  NaasteKit:
+    path: NaasteKit
+
+targets:
+  NaasteApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: Naaste
+        excludes:
+          - "Resources/Naaste.storekit"
+      # Alleen voor testen in Xcode/simulator, niet meegeleverd in de app
+      - path: Naaste/Resources/Naaste.storekit
+        buildPhase: none
+    dependencies:
+      - package: NaasteKit
+    settings:
+      base:
+        PRODUCT_NAME: Naaste
+        PRODUCT_MODULE_NAME: NaasteApp
+        PRODUCT_BUNDLE_IDENTIFIER: nl.naaste.app
+        INFOPLIST_FILE: Naaste/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Naaste/Naaste.entitlements
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: YES
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+
+  NaasteTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: NaasteTests
+    dependencies:
+      - target: NaasteApp
+      - package: NaasteKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: nl.naaste.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Naaste.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Naaste"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  Naaste:
+    build:
+      targets:
+        NaasteApp: all
+        NaasteTests: [test]
+    run:
+      config: Debug
+      storeKitConfiguration: Naaste/Resources/Naaste.storekit
+    test:
+      config: Debug
+      targets:
+        - NaasteTests
+    archive:
+      config: Release

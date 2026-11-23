@@ -1,0 +1,96 @@
+{
+  "identifier" : "4E7A2C1B",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "nl_NL",
+    "_storefront" : "NLD",
+    "_storeKitErrors" : [
+
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21612301",
+      "localizations" : [
+        {
+          "description" : "Alle functies van Naaste",
+          "displayName" : "Naaste Plus",
+          "locale" : "nl_NL"
+        }
+      ],
+      "name" : "Naaste Plus",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "3.99",
+          "familyShareable" : true,
+          "groupNumber" : 1,
+          "internalID" : "6741000001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Onbeperkt naasten en documenten, delen met de hele familie, urenlogboek en PDF-exports.",
+              "displayName" : "Naaste Plus maandelijks",
+              "locale" : "nl_NL"
+            }
+          ],
+          "productID" : "nl.naaste.app.plus.maand",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Naaste Plus maand",
+          "subscriptionGroupID" : "21612301",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "34.99",
+          "familyShareable" : true,
+          "groupNumber" : 1,
+          "internalID" : "6741000002",
+          "introductoryOffer" : {
+            "internalID" : "6741000003",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P2W"
+          },
+          "localizations" : [
+            {
+              "description" : "Onbeperkt naasten en documenten, delen met de hele familie, urenlogboek en PDF-exports.",
+              "displayName" : "Naaste Plus jaarlijks",
+              "locale" : "nl_NL"
+            }
+          ],
+          "productID" : "nl.naaste.app.plus.jaar",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Naaste Plus jaar",
+          "subscriptionGroupID" : "21612301",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
