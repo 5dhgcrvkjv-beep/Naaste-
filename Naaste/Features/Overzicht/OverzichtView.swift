@@ -19,6 +19,7 @@ private struct OverzichtInhoud: View {
     @FetchRequest private var zaken: FetchedResults<Zaak>
     @FetchRequest private var taken: FetchedResults<Taak>
     @FetchRequest private var contacten: FetchedResults<Contactpersoon>
+    @State private var overdracht = false
 
     init(naaste: Naaste) {
         self.naaste = naaste
@@ -119,8 +120,21 @@ private struct OverzichtInhoud: View {
                     LegeRij(tekst: "Voeg contactpersonen toe via het profiel hierboven.")
                 }
             }
+
+            Section {
+                Button {
+                    overdracht = true
+                } label: {
+                    Label("Overdrachtsoverzicht maken", systemImage: "doc.richtext")
+                }
+            } footer: {
+                Text("Alles op een rij als PDF, voor wie het even overneemt.")
+            }
         }
         .listStyle(.insetGrouped)
+        .sheet(isPresented: $overdracht) {
+            OverdrachtView(naaste: naaste)
+        }
         .navigationTitle(naaste.weergaveNaam)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

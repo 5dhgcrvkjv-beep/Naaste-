@@ -7,6 +7,8 @@ struct PDFOpmaak {
         case titel(String)
         case ondertitel(String)
         case kop(String)
+        /// Vetgedrukte tussenkop; komt nooit los onderaan een pagina te staan.
+        case subkop(String)
         case tekst(String)
         case kleineTekst(String)
         /// Label links, waarde rechts (bijv. "Telefoon   030 …").
@@ -114,9 +116,13 @@ struct PDFOpmaak {
             case let .ondertitel(tekst):
                 tekenTekst(NSAttributedString(string: tekst, attributes: attributen(grootte: 11, kleur: .darkGray)), naRuimte: 14)
             case let .kop(tekst):
-                ruimteNodig(48) // kop niet als laatste regel onderaan een pagina
+                ruimteNodig(110) // kop met minstens een tussenkop en een paar regels erna, niet los onderaan
                 y += 8
                 tekenTekst(NSAttributedString(string: tekst, attributes: attributen(grootte: 14, gewicht: .semibold, kleur: accent)), naRuimte: 6)
+            case let .subkop(tekst):
+                ruimteNodig(56)
+                y += 4
+                tekenTekst(NSAttributedString(string: tekst, attributes: attributen(grootte: 11.5, gewicht: .semibold)), naRuimte: 4)
             case let .tekst(tekst):
                 tekenTekst(NSAttributedString(string: tekst, attributes: attributen(grootte: 10.5)), naRuimte: 8)
             case let .kleineTekst(tekst):

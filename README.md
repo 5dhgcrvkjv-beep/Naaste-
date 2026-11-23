@@ -84,6 +84,6 @@ CloudKit-database niet; `NSPersistentCloudKitContainer` wel (privé- én gedeeld
 | 4 | Zaken met tijdlijn, herinneringen en notificaties | ✅ |
 | 5 | Taken en urenlogboek | ✅ |
 | 6 | Delen via CloudKit, stoppen met delen, alle gegevens wissen | ✅ (code; testen op 2 toestellen nodig) |
-| 8 | PDF-exports (uren, overdracht) | ⏳ |
+| 8 | PDF-exports (uren, overdracht) | ✅ |
 | 9 | Onboarding, toegankelijkheid, laatste controle | ⏳ |
 | 10 | App Store-teksten, site, privacy-labels, review notes, checklist | ⏳ |

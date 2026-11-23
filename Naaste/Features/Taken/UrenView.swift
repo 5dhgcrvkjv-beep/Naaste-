@@ -14,6 +14,7 @@ struct UrenView: View {
     @AppStorage("urenPeriode") private var periode: UrenPeriode = .dezeMaand
     @State private var nieuw = false
     @State private var bewerken: Urenregel?
+    @State private var exportPDF: Data?
 
     init(naaste: Naaste) {
         self.naaste = naaste
@@ -129,6 +130,16 @@ struct UrenView: View {
             }
         }
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    if app.vraagToegang(tot: .urenExport, bij: naaste) {
+                        exportPDF = Exports.uren(naaste, periode: periode)
+                    }
+                } label: {
+                    Label("Exporteer als PDF", systemImage: "square.and.arrow.up")
+                }
+                .disabled(regels.isEmpty)
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     if app.vraagToegang(tot: .urenlogboek, bij: naaste) { nieuw = true }
@@ -139,6 +150,15 @@ struct UrenView: View {
         }
         .sheet(isPresented: $nieuw) {
             UrenregelBewerkenView(naaste: naaste, regel: nil)
+        }
+        .sheet(isPresented: Binding(get: { exportPDF != nil }, set: { if !$0 { exportPDF = nil } })) {
+            if let exportPDF {
+                PDFVoorbeeldView(
+                    titel: String(localized: "Urenoverzicht"),
+                    data: exportPDF,
+                    bestandsnaam: DocumentNamen.bestandsnaam(voorTitel: String(localized: "Uren \(naaste.weergaveNaam) \(Exports.periodeTekst(periode, interval: periode.interval(nu: .now), regels: regels.map(\.data)))"))
+                )
+            }
         }
         .sheet(item: $bewerken) { regel in
             UrenregelBewerkenView(naaste: naaste, regel: regel)
