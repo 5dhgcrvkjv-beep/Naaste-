@@ -105,3 +105,36 @@ struct EnumTests {
         }
     }
 }
+
+@Suite("Urenperiode")
+struct UrenPeriodeTests {
+    private var calendar: Calendar {
+        var c = Calendar(identifier: .gregorian)
+        c.timeZone = TimeZone(identifier: "Europe/Amsterdam")!
+        return c
+    }
+
+    private func datum(_ j: Int, _ m: Int, _ d: Int) -> Date {
+        calendar.date(from: DateComponents(year: j, month: m, day: d, hour: 12))!
+    }
+
+    @Test func maanden() throws {
+        let nu = datum(2026, 1, 15)
+        let deze = try #require(UrenPeriode.dezeMaand.interval(nu: nu, calendar: calendar))
+        #expect(deze.contains(datum(2026, 1, 31)))
+        #expect(!deze.contains(datum(2026, 2, 1)))
+        // Vorige maand over de jaargrens heen.
+        let vorige = try #require(UrenPeriode.vorigeMaand.interval(nu: nu, calendar: calendar))
+        #expect(vorige.contains(datum(2025, 12, 1)))
+        #expect(vorige.contains(datum(2025, 12, 31)))
+        #expect(!vorige.contains(datum(2026, 1, 1)))
+    }
+
+    @Test func jaarEnAlles() throws {
+        let nu = datum(2026, 6, 1)
+        let jaar = try #require(UrenPeriode.ditJaar.interval(nu: nu, calendar: calendar))
+        #expect(jaar.contains(datum(2026, 1, 1)))
+        #expect(!jaar.contains(datum(2025, 12, 31)))
+        #expect(UrenPeriode.alles.interval(nu: nu, calendar: calendar) == nil)
+    }
+}

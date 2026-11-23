@@ -37,6 +37,7 @@ Vóór de eerste build op een echte iPhone:
 Alleen in Debug-builds (handig voor screenshots):
 `xcrun simctl launch booted nl.naaste.app -laadVoorbeeld -startTab documenten`
 laadt de voorbeeld-naaste en opent direct een tabblad (`overzicht`, `documenten`, `zaken`, `taken`, `instellingen`).
+Met `-takenWeergave uren` opent het tabblad Taken direct op het urenlogboek.
 
 ## Structuur
 
@@ -69,7 +70,7 @@ CloudKit-database niet; `NSPersistentCloudKitContainer` wel (privé- én gedeeld
 | 7 | StoreKit 2, paywall, limieten, Instellingen-abonnement | ✅ (vroeg gebouwd, alle functies gebruiken het) |
 | 3 | Documenten: scannen, PDF-import, mappen, tekstherkenning, zoeken | ✅ |
 | 4 | Zaken met tijdlijn, herinneringen en notificaties | ✅ |
-| 5 | Taken en urenlogboek | ⏳ |
+| 5 | Taken en urenlogboek | ✅ |
 | 6 | Delen via CloudKit, stoppen met delen, alle gegevens wissen | ⏳ |
 | 8 | PDF-exports (uren, overdracht) | ⏳ |
 | 9 | Onboarding, toegankelijkheid, laatste controle | ⏳ |

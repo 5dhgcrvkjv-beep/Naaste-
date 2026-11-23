@@ -77,3 +77,28 @@ public enum UrenRekenaar {
         return (m / 60, m % 60)
     }
 }
+
+/// Periode voor het urenoverzicht.
+public enum UrenPeriode: String, CaseIterable, Sendable, Identifiable {
+    case dezeMaand
+    case vorigeMaand
+    case ditJaar
+    case alles
+
+    public var id: String { rawValue }
+
+    /// Het tijdvak, einde exclusief. `nil` = geen filter.
+    public func interval(nu: Date, calendar: Calendar = .current) -> DateInterval? {
+        switch self {
+        case .dezeMaand:
+            return calendar.dateInterval(of: .month, for: nu)
+        case .vorigeMaand:
+            guard let vorige = calendar.date(byAdding: .month, value: -1, to: nu) else { return nil }
+            return calendar.dateInterval(of: .month, for: vorige)
+        case .ditJaar:
+            return calendar.dateInterval(of: .year, for: nu)
+        case .alles:
+            return nil
+        }
+    }
+}
