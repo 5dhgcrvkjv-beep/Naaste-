@@ -51,6 +51,12 @@ private struct OverzichtInhoud: View {
                         BinnenkortRij(item: item)
                     }
                 }
+                NavigationLink {
+                    HerinneringenView(naaste: naaste)
+                } label: {
+                    Label("Alle herinneringen", systemImage: "bell")
+                        .foregroundStyle(Color.accentColor)
+                }
             }
 
             Section {
@@ -58,7 +64,11 @@ private struct OverzichtInhoud: View {
                     LegeRij(tekst: "Er lopen geen zaken. Leg een aanvraag vast in het tabblad Zaken.")
                 } else {
                     ForEach(zaken.sorted(by: Zaak.sorteerOpVervolg).prefix(3)) { zaak in
-                        ZaakKorteRij(zaak: zaak)
+                        NavigationLink {
+                            ZaakDetailView(zaak: zaak)
+                        } label: {
+                            ZaakKorteRij(zaak: zaak)
+                        }
                     }
                 }
             } header: {

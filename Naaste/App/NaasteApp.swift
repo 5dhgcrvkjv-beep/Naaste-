@@ -21,6 +21,7 @@ struct NaasteApp: App {
 
 struct RootView: View {
     @Environment(AppModel.self) private var app
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         @Bindable var app = app
@@ -37,11 +38,19 @@ struct RootView: View {
         .task {
             app.entitlements.start()
             app.herkenOpenstaandeDocumenten()
+            app.planMeldingen()
             #if DEBUG
             if ProcessInfo.processInfo.arguments.contains("-laadVoorbeeld") {
                 app.laadVoorbeeld()
             }
             #endif
+        }
+        // Wijzigingen van familieleden (via iCloud) of een nieuwe dag: meldingen opnieuw plannen.
+        .onReceive(NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange)) { _ in
+            app.planMeldingen()
+        }
+        .onChange(of: scenePhase) { _, fase in
+            if fase == .active { app.planMeldingen() }
         }
         .onChange(of: app.isPlus) {
             app.werkEigenaarStatusBij()

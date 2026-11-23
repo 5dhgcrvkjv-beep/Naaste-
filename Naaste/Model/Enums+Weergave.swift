@@ -219,3 +219,23 @@ enum Duur {
         return formatter.string(from: TimeInterval(max(minuten, 0) * 60)) ?? String(localized: "\(u) u \(m) min")
     }
 }
+
+extension GebeurtenisSoort {
+    var titel: String {
+        switch self {
+        case .status: String(localized: "Status")
+        case .notitie: String(localized: "Notitie")
+        case .contact: String(localized: "Contact")
+        case .document: String(localized: "Document")
+        }
+    }
+
+    var symbool: String {
+        switch self {
+        case .status: "flag"
+        case .notitie: "text.bubble"
+        case .contact: "phone.bubble"
+        case .document: "doc.text"
+        }
+    }
+}

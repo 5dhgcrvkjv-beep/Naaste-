@@ -24,13 +24,15 @@ enum PaywallAanleiding: Identifiable, Equatable {
 final class AppModel {
     let persistence: PersistenceController
     let entitlements: EntitlementStore
+    let meldingen: Meldingen
 
     var paywall: PaywallAanleiding?
     var foutmelding: String?
 
-    init(persistence: PersistenceController, entitlements: EntitlementStore) {
+    init(persistence: PersistenceController, entitlements: EntitlementStore, meldingen: Meldingen? = nil) {
         self.persistence = persistence
         self.entitlements = entitlements
+        self.meldingen = meldingen ?? Meldingen()
     }
 
     var context: NSManagedObjectContext { persistence.viewContext }
@@ -95,6 +97,7 @@ final class AppModel {
     func bewaar() -> Bool {
         do {
             try persistence.bewaar()
+            planMeldingen()
             return true
         } catch {
             foutmelding = String(localized: "Je wijziging kon niet worden opgeslagen. Probeer het opnieuw. Blijft dit gebeuren, controleer dan of er genoeg opslagruimte vrij is op je iPhone.")

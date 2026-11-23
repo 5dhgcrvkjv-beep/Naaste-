@@ -40,7 +40,9 @@ struct Etiket: View {
                 Image(systemName: symbool).accessibilityHidden(true)
             }
             Text(tekst)
+                .lineLimit(1)
         }
+        .fixedSize(horizontal: true, vertical: false)
         .font(.caption.weight(.medium))
         .foregroundStyle(kleur)
         .padding(.horizontal, 8)
