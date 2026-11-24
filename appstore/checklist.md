@@ -82,6 +82,8 @@ Uitbetaling: maandelijks, ongeveer 33 dagen na het einde van de maand, vanaf een
       Op de iPhone: Instellingen → App Store → Sandbox-account.
 - [ ] App-privacy volgens `appstore/privacy-labels.md`.
 - [ ] Leeftijdsclassificatie: 4+.
+- [ ] **Beschikbaarheid: alleen Nederland** (Prijzen en beschikbaarheid → landen). De app is ingericht op
+      het Nederlandse zorgsysteem (Wmo, Wlz/CIZ, pgb, CAK). België/Vlaanderen komt later, met een landkeuze in de app.
 - [ ] Exportnaleving: geen niet-vrijgestelde versleuteling (`ITSAppUsesNonExemptEncryption` = NO staat al in Info.plist).
 - [ ] Review notes uit `appstore/review-notes.md` + jouw contactgegevens.
 
