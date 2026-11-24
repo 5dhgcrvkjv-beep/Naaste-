@@ -209,6 +209,7 @@ struct InstellingenView: View {
 
 /// Vergrendelen met Face ID, Touch ID of toegangscode.
 private struct BeveiligingSectie: View {
+    @Environment(AppModel.self) private var app
     @State private var vergrendeling = Vergrendeling.shared
 
     var body: some View {
@@ -216,7 +217,12 @@ private struct BeveiligingSectie: View {
         Section {
             Toggle(isOn: Binding(
                 get: { vergrendeling.aan },
-                set: { nieuw in Task { await vergrendeling.zet(aan: nieuw) } }
+                set: { nieuw in
+                    Task {
+                        await vergrendeling.zet(aan: nieuw)
+                        app.werkSpotlightBij()
+                    }
+                }
             )) {
                 Label("Vergrendel met \(vergrendeling.methodeNaam)", systemImage: vergrendeling.methodeSymbool)
             }
@@ -227,7 +233,7 @@ private struct BeveiligingSectie: View {
             if methode == .geen {
                 Text("Stel eerst een toegangscode in op je iPhone (Instellingen → Face ID en toegangscode).")
             } else {
-                Text("Naaste vraagt om \(vergrendeling.methodeNaam) als je de app opent. In de app-kiezer is de inhoud verborgen.")
+                Text("Naaste vraagt om \(vergrendeling.methodeNaam) als je de app opent. In de app-kiezer is de inhoud verborgen en je gegevens verschijnen niet in Spotlight.")
             }
         }
     }
@@ -236,18 +242,19 @@ private struct BeveiligingSectie: View {
 /// Reservekopie maken en terugzetten via Bestanden.
 private struct ReservekopieSectie: View {
     @Environment(AppModel.self) private var app
+    @State private var maken = false
     @State private var bestand: ReservekopieBestand?
     @State private var exporteren = false
     @State private var importeren = false
+    /// Gekozen kopie die nog een wachtwoord nodig heeft.
+    @State private var teOntsleutelen: Data?
+    @State private var wachtwoord = ""
     @State private var melding: String?
 
     var body: some View {
         Section {
             Button {
-                if let kopie = app.maakReservekopie() {
-                    bestand = ReservekopieBestand(data: kopie.data)
-                    exporteren = true
-                }
+                maken = true
             } label: {
                 Label("Reservekopie maken", systemImage: "square.and.arrow.up")
             }
@@ -260,8 +267,18 @@ private struct ReservekopieSectie: View {
             Text("Reservekopie")
         } footer: {
             Text(PersistenceController.zonderICloud
-                ? "Deze testversie bewaart alles alleen op deze iPhone. Maak af en toe een reservekopie in Bestanden, dan raak je niets kwijt als je de app verwijdert. De kopie is niet versleuteld: bewaar hem op een veilige plek."
-                : "Een kopie van je eigen naasten met documenten, zaken, taken en uren, als één bestand in Bestanden. Terugzetten voegt alleen toe wat ontbreekt. De kopie is niet versleuteld: bewaar hem op een veilige plek.")
+                ? "Deze testversie bewaart alles alleen op deze iPhone. Maak af en toe een reservekopie in Bestanden, dan raak je niets kwijt als je de app verwijdert."
+                : "Een kopie van je eigen naasten met documenten, zaken, taken en uren, als één bestand in Bestanden. Terugzetten voegt alleen toe wat ontbreekt.")
+        }
+        .sheet(isPresented: $maken, onDismiss: {
+            // De bewaarplek pas kiezen als het formulier weg is.
+            if bestand != nil { exporteren = true }
+        }) {
+            ReservekopieMakenView { wachtwoord in
+                if let kopie = app.maakReservekopie(wachtwoord: wachtwoord) {
+                    bestand = ReservekopieBestand(data: kopie.data)
+                }
+            }
         }
         .fileExporter(
             isPresented: $exporteren,
@@ -276,7 +293,17 @@ private struct ReservekopieSectie: View {
         }
         .fileImporter(isPresented: $importeren, allowedContentTypes: [.naasteReservekopie, .data]) { resultaat in
             guard case let .success(url) = resultaat else { return }
-            zetTerug(url)
+            lees(url)
+        }
+        .alert("Wachtwoord", isPresented: Binding(get: { teOntsleutelen != nil }, set: { if !$0 { teOntsleutelen = nil } })) {
+            SecureField("Wachtwoord", text: $wachtwoord)
+            Button("Annuleer", role: .cancel) { wachtwoord = "" }
+            Button("Zet terug") {
+                if let data = teOntsleutelen { zetTerug(data, wachtwoord: wachtwoord) }
+                wachtwoord = ""
+            }
+        } message: {
+            Text("Deze reservekopie is beveiligd. Vul het wachtwoord in dat je bij het maken koos.")
         }
         .alert("Reservekopie", isPresented: Binding(get: { melding != nil }, set: { if !$0 { melding = nil } })) {
             Button("OK", role: .cancel) {}
@@ -285,12 +312,23 @@ private struct ReservekopieSectie: View {
         }
     }
 
-    private func zetTerug(_ url: URL) {
+    private func lees(_ url: URL) {
         let toegang = url.startAccessingSecurityScopedResource()
         defer { if toegang { url.stopAccessingSecurityScopedResource() } }
+        guard let data = try? Data(contentsOf: url) else {
+            melding = String(localized: "Het bestand kon niet worden gelezen.")
+            return
+        }
+        if Reservekopie.isVersleuteld(data) {
+            teOntsleutelen = data
+        } else {
+            zetTerug(data, wachtwoord: nil)
+        }
+    }
+
+    private func zetTerug(_ data: Data, wachtwoord: String?) {
         do {
-            let data = try Data(contentsOf: url)
-            let s = try app.zetReservekopieTerug(data)
+            let s = try app.zetReservekopieTerug(data, wachtwoord: wachtwoord)
             if s.naasten + s.documenten + s.overig == 0 {
                 melding = String(localized: "Alles uit deze reservekopie stond al op deze iPhone. Er is niets veranderd.")
             } else {
@@ -302,6 +340,73 @@ private struct ReservekopieSectie: View {
             melding = fout.localizedDescription
         } catch {
             melding = String(localized: "De reservekopie kon niet worden teruggezet. Probeer het opnieuw.")
+        }
+    }
+}
+
+/// Wachtwoord kiezen voor een nieuwe reservekopie.
+private struct ReservekopieMakenView: View {
+    let maak: (String?) -> Void
+    @Environment(\.dismiss) private var dismiss
+    @State private var wachtwoord = ""
+    @State private var herhaling = ""
+    @State private var bezig = false
+
+    static let minimaleLengte = 8
+
+    private var zonderWachtwoord: Bool { wachtwoord.isEmpty && herhaling.isEmpty }
+    private var geldig: Bool {
+        zonderWachtwoord || (wachtwoord.count >= Self.minimaleLengte && wachtwoord == herhaling)
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    SecureField("Wachtwoord", text: $wachtwoord)
+                        .textContentType(.newPassword)
+                    SecureField("Herhaal wachtwoord", text: $herhaling)
+                        .textContentType(.newPassword)
+                } footer: {
+                    if zonderWachtwoord {
+                        Label("Zonder wachtwoord kan iedereen die het bestand krijgt je documenten lezen.", systemImage: "exclamationmark.triangle")
+                    } else if wachtwoord.count < Self.minimaleLengte {
+                        Text("Minstens \(Self.minimaleLengte) tekens.")
+                    } else if !herhaling.isEmpty && wachtwoord != herhaling {
+                        Text("De wachtwoorden zijn niet hetzelfde.")
+                    } else {
+                        Text("Bewaar het wachtwoord goed, bijvoorbeeld in de app Wachtwoorden. Ben je het kwijt, dan kan niemand de kopie meer openen, ook Naaste niet.")
+                    }
+                }
+                Section {
+                    Text("De kopie bevat je eigen naasten met documenten, zaken, taken en uren. Na het maken kies je waar je hem bewaart, bijvoorbeeld in iCloud Drive of op een USB-stick.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .navigationTitle("Reservekopie maken")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Annuleer") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    if bezig {
+                        ProgressView()
+                    } else {
+                        Button(zonderWachtwoord ? "Maak zonder wachtwoord" : "Maak") {
+                            bezig = true
+                            // Even wachten zodat de voortgang zichtbaar is; het versleutelen duurt kort.
+                            Task {
+                                try? await Task.sleep(for: .milliseconds(50))
+                                maak(zonderWachtwoord ? nil : wachtwoord)
+                                dismiss()
+                            }
+                        }
+                        .disabled(!geldig)
+                    }
+                }
+            }
         }
     }
 }

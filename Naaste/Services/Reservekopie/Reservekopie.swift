@@ -1,4 +1,6 @@
+import CommonCrypto
 import CoreData
+import CryptoKit
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -20,6 +22,8 @@ enum Reservekopie {
     enum Fout: LocalizedError {
         case onbekendBestand
         case nieuwereVersie
+        case wachtwoordNodig
+        case verkeerdWachtwoord
 
         var errorDescription: String? {
             switch self {
@@ -27,6 +31,10 @@ enum Reservekopie {
                 String(localized: "Dit bestand is geen reservekopie van Naaste.")
             case .nieuwereVersie:
                 String(localized: "Deze reservekopie is gemaakt met een nieuwere versie van Naaste. Werk de app bij en probeer het opnieuw.")
+            case .wachtwoordNodig:
+                String(localized: "Deze reservekopie is beveiligd met een wachtwoord.")
+            case .verkeerdWachtwoord:
+                String(localized: "Het wachtwoord klopt niet.")
             }
         }
     }
@@ -46,7 +54,9 @@ enum Reservekopie {
     static func maak(
         uit context: NSManagedObjectContext,
         opslag: NSPersistentStore?,
-        datum: Date = .now
+        wachtwoord: String? = nil,
+        datum: Date = .now,
+        rondes: Int = standaardRondes
     ) throws -> (data: Data, samenvatting: Samenvatting) {
         let request = NSFetchRequest<NSManagedObject>(entityName: "Naaste")
         request.predicate = NSPredicate(format: "isVoorbeeld == NO")
@@ -105,7 +115,8 @@ enum Reservekopie {
 
         let bestand: [String: Any] = ["formaat": formaat, "versie": versie, "gemaakt": datum, "objecten": lijst]
         let data = try PropertyListSerialization.data(fromPropertyList: bestand, format: .binary, options: 0)
-        return (data, samenvatting)
+        guard let wachtwoord, !wachtwoord.isEmpty else { return (data, samenvatting) }
+        return (try versleutel(data, wachtwoord: wachtwoord, rondes: rondes), samenvatting)
     }
 
     static func bestandsnaam(datum: Date = .now) -> String {
@@ -119,14 +130,15 @@ enum Reservekopie {
     static func zetTerug(
         _ data: Data,
         in context: NSManagedObjectContext,
-        opslag: NSPersistentStore?
+        opslag: NSPersistentStore?,
+        wachtwoord: String? = nil
     ) throws -> Samenvatting {
-        guard let bestand = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
-              bestand["formaat"] as? String == formaat,
-              let objecten = bestand["objecten"] as? [[String: Any]] else {
-            throw Fout.onbekendBestand
+        var bestand = try lees(data)
+        if bestand["versleuteld"] as? Bool == true {
+            guard let wachtwoord, !wachtwoord.isEmpty else { throw Fout.wachtwoordNodig }
+            bestand = try lees(try ontsleutel(bestand, wachtwoord: wachtwoord))
         }
-        guard (bestand["versie"] as? Int ?? 0) <= versie else { throw Fout.nieuwereVersie }
+        guard let objecten = bestand["objecten"] as? [[String: Any]] else { throw Fout.onbekendBestand }
         let entiteiten = context.persistentStoreCoordinator?.managedObjectModel.entitiesByName ?? [:]
 
         // 1. Objecten maken (of de bestaande vinden).
@@ -187,6 +199,74 @@ enum Reservekopie {
             }
         }
         return samenvatting
+    }
+}
+
+// MARK: - Versleuteling
+
+extension Reservekopie {
+    /// PBKDF2-SHA256; maakt raden van het wachtwoord traag.
+    static let standaardRondes = 600_000
+
+    /// `true` als de kopie een wachtwoord nodig heeft.
+    static func isVersleuteld(_ data: Data) -> Bool {
+        (try? lees(data))?["versleuteld"] as? Bool == true
+    }
+
+    /// Leest de buitenkant van een bestand en controleert formaat en versie.
+    fileprivate static func lees(_ data: Data) throws -> [String: Any] {
+        guard let bestand = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
+              bestand["formaat"] as? String == formaat else {
+            throw Fout.onbekendBestand
+        }
+        guard (bestand["versie"] as? Int ?? 0) <= versie else { throw Fout.nieuwereVersie }
+        return bestand
+    }
+
+    /// AES-256-GCM met een sleutel uit het wachtwoord. Het resultaat is weer een
+    /// reservekopie-bestand, met de versleutelde inhoud erin.
+    fileprivate static func versleutel(_ data: Data, wachtwoord: String, rondes: Int) throws -> Data {
+        var zout = Data(count: 16)
+        let status = zout.withUnsafeMutableBytes { SecRandomCopyBytes(kSecRandomDefault, 16, $0.baseAddress!) }
+        guard status == errSecSuccess else { throw Fout.onbekendBestand }
+        let sleutel = try sleutel(wachtwoord: wachtwoord, zout: zout, rondes: rondes)
+        guard let inhoud = try AES.GCM.seal(data, using: sleutel).combined else { throw Fout.onbekendBestand }
+        let bestand: [String: Any] = [
+            "formaat": formaat, "versie": versie, "versleuteld": true,
+            "zout": zout, "rondes": rondes, "inhoud": inhoud
+        ]
+        return try PropertyListSerialization.data(fromPropertyList: bestand, format: .binary, options: 0)
+    }
+
+    fileprivate static func ontsleutel(_ bestand: [String: Any], wachtwoord: String) throws -> Data {
+        guard let zout = bestand["zout"] as? Data, let rondes = bestand["rondes"] as? Int,
+              let inhoud = bestand["inhoud"] as? Data else { throw Fout.onbekendBestand }
+        let sleutel = try sleutel(wachtwoord: wachtwoord, zout: zout, rondes: rondes)
+        do {
+            return try AES.GCM.open(AES.GCM.SealedBox(combined: inhoud), using: sleutel)
+        } catch {
+            throw Fout.verkeerdWachtwoord
+        }
+    }
+
+    private static func sleutel(wachtwoord: String, zout: Data, rondes: Int) throws -> SymmetricKey {
+        let wachtwoordData = Data(wachtwoord.precomposedStringWithCanonicalMapping.utf8)
+        var sleutel = Data(count: 32)
+        let status = sleutel.withUnsafeMutableBytes { sleutelPtr in
+            zout.withUnsafeBytes { zoutPtr in
+                wachtwoordData.withUnsafeBytes { wachtwoordPtr in
+                    CCKeyDerivationPBKDF(
+                        CCPBKDFAlgorithm(kCCPBKDF2),
+                        wachtwoordPtr.baseAddress?.assumingMemoryBound(to: CChar.self), wachtwoordData.count,
+                        zoutPtr.baseAddress?.assumingMemoryBound(to: UInt8.self), zout.count,
+                        CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256), UInt32(max(rondes, 1)),
+                        sleutelPtr.baseAddress?.assumingMemoryBound(to: UInt8.self), 32
+                    )
+                }
+            }
+        }
+        guard status == kCCSuccess else { throw Fout.onbekendBestand }
+        return SymmetricKey(data: sleutel)
     }
 }
 

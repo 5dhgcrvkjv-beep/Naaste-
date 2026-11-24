@@ -45,6 +45,14 @@ struct TakenView: View {
             .navigationTitle(weergave == .taken ? "Taken" : "Uren")
             .navigationBarTitleDisplayMode(.inline)
         }
+        // De lijst of het urenlogboek opent daarna zelf het juiste formulier.
+        .onChange(of: Navigatie.shared.open, initial: true) { _, bestemming in
+            switch bestemming {
+            case .nieuweTaak, .taak: weergave = .taken
+            case .uren: weergave = .uren
+            default: break
+            }
+        }
     }
 }
 
@@ -71,6 +79,7 @@ private struct TakenLijst: View {
     @State private var bewerken: Taak?
     @State private var nieuwMetDetails = false
     @State private var toonAfgerond = false
+    @State private var agenda: AgendaItem?
     @FocusState private var invoerActief: Bool
 
     init(naaste: Naaste) {
@@ -116,6 +125,15 @@ private struct TakenLijst: View {
                 }
                 ForEach(open) { taak in
                     TaakRij(taak: taak) { bewerken = taak }
+                        .contextMenu {
+                            if taak.deadline != nil {
+                                Button {
+                                    agenda = AgendaItem(deadlineVan: taak)
+                                } label: {
+                                    Label("Zet deadline in agenda", systemImage: "calendar.badge.plus")
+                                }
+                            }
+                        }
                 }
                 .onDelete { verwijder(open, $0) }
             } header: {
@@ -158,6 +176,18 @@ private struct TakenLijst: View {
         }
         .sheet(isPresented: $nieuwMetDetails) {
             TaakBewerkenView(naaste: naaste, taak: nil)
+        }
+        .agendaScherm($agenda)
+        .onChange(of: Navigatie.shared.open, initial: true) { _, bestemming in
+            switch bestemming {
+            case .nieuweTaak:
+                Navigatie.shared.open = nil
+                nieuwMetDetails = true
+            case let .taak(id):
+                Navigatie.shared.open = nil
+                bewerken = Navigatie.zoek(Taak.self, uuid: id, in: app.context)
+            default: break
+            }
         }
     }
 

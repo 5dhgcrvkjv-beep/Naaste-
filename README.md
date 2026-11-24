@@ -37,7 +37,7 @@ Vóór de eerste build op een echte iPhone:
 Alleen in Debug-builds (handig voor screenshots):
 `xcrun simctl launch booted nl.naaste.app -laadVoorbeeld -startTab documenten`
 laadt de voorbeeld-naaste en opent direct een tabblad (`overzicht`, `documenten`, `zaken`, `taken`, `instellingen`).
-Met `-takenWeergave uren` opent het tabblad Taken direct op het urenlogboek, en `-toonOnboarding` toont de kennismaking opnieuw. `-vergrendel` zet de Face ID-vergrendeling aan (in de simulator: Features → Face ID → Enrolled).
+Met `-takenWeergave uren` opent het tabblad Taken direct op het urenlogboek, en `-toonOnboarding` toont de kennismaking opnieuw. `-snelkoppeling nl.naaste.scan|taak|uren` bootst een snelle actie op het app-icoon na. `-vergrendel` zet de Face ID-vergrendeling aan (in de simulator: Features → Face ID → Enrolled).
 
 ## Structuur
 

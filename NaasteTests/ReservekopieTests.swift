@@ -93,4 +93,30 @@ struct ReservekopieTests {
         }
         #expect(try aantal("Naaste", in: doel) == 0)
     }
+
+    @Test func metWachtwoord() throws {
+        let bron = PersistenceController(inMemory: true)
+        _ = try vulBron(bron)
+        let data = try Reservekopie.maak(uit: bron.viewContext, opslag: bron.privateStore, wachtwoord: "geheim123", rondes: 1000).data
+        #expect(Reservekopie.isVersleuteld(data))
+        // De inhoud is niet leesbaar zonder wachtwoord.
+        #expect(data.range(of: Data("Riet".utf8)) == nil)
+
+        let doel = PersistenceController(inMemory: true)
+        #expect(throws: Reservekopie.Fout.wachtwoordNodig) {
+            _ = try Reservekopie.zetTerug(data, in: doel.viewContext, opslag: doel.privateStore)
+        }
+        #expect(throws: Reservekopie.Fout.verkeerdWachtwoord) {
+            _ = try Reservekopie.zetTerug(data, in: doel.viewContext, opslag: doel.privateStore, wachtwoord: "fout")
+        }
+        let terug = try Reservekopie.zetTerug(data, in: doel.viewContext, opslag: doel.privateStore, wachtwoord: "geheim123")
+        #expect(terug.naasten == 1 && terug.documenten == 1)
+    }
+
+    @Test func zonderWachtwoordNietVersleuteld() throws {
+        let bron = PersistenceController(inMemory: true)
+        _ = try vulBron(bron)
+        let data = try Reservekopie.maak(uit: bron.viewContext, opslag: bron.privateStore, wachtwoord: "").data
+        #expect(!Reservekopie.isVersleuteld(data))
+    }
 }

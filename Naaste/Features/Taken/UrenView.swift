@@ -24,10 +24,18 @@ struct UrenView: View {
     private var magToevoegen: Bool { app.heeftToegang(tot: .urenlogboek, bij: naaste) }
 
     var body: some View {
-        if !magToevoegen && regels.isEmpty {
-            uitleg
-        } else {
-            overzicht
+        Group {
+            if !magToevoegen && regels.isEmpty {
+                uitleg
+            } else {
+                overzicht
+            }
+        }
+        // Snelle actie "Uren schrijven". Zonder Plus verschijnt de uitleg over Plus.
+        .onChange(of: Navigatie.shared.open, initial: true) { _, bestemming in
+            guard bestemming == .uren else { return }
+            Navigatie.shared.open = nil
+            if app.vraagToegang(tot: .urenlogboek, bij: naaste) { nieuw = true }
         }
     }
 

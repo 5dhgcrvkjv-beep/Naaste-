@@ -15,6 +15,7 @@ struct ZaakDetailView: View {
     @State private var nieuweHerinnering = false
     @State private var herinneringBewerken: Herinnering?
     @State private var statusMetNotitie: ZaakStatus?
+    @State private var agenda: AgendaItem?
 
     var body: some View {
         if zaak.isDeleted || zaak.managedObjectContext == nil {
@@ -50,6 +51,7 @@ struct ZaakDetailView: View {
                 ZaakBewerkenView(naaste: naaste, zaak: zaak, naVerwijderen: { dismiss() })
             }
         }
+        .agendaScherm($agenda)
         .sheet(isPresented: $nieuweGebeurtenis) {
             GebeurtenisToevoegenView(zaak: zaak)
         }
@@ -101,6 +103,11 @@ struct ZaakDetailView: View {
                     }
                 } label: {
                     Text("Vervolg")
+                }
+                Button {
+                    agenda = AgendaItem(vervolgVan: zaak)
+                } label: {
+                    Label("Zet vervolg in agenda", systemImage: "calendar.badge.plus")
                 }
             }
         }

@@ -10,6 +10,7 @@ struct HerinneringenView: View {
     @FetchRequest private var herinneringen: FetchedResults<Herinnering>
 
     @State private var nieuw = false
+    @State private var agenda: AgendaItem?
     @State private var bewerken: Herinnering?
     @State private var toonAfgerond = false
 
@@ -48,6 +49,13 @@ struct HerinneringenView: View {
                             }
                             .tint(.accentColor)
                         }
+                        .contextMenu {
+                            Button {
+                                agenda = AgendaItem(herinnering: herinnering)
+                            } label: {
+                                Label("Zet in agenda", systemImage: "calendar.badge.plus")
+                            }
+                        }
                     }
                 }
             }
@@ -85,6 +93,7 @@ struct HerinneringenView: View {
         .sheet(item: $bewerken) { herinnering in
             HerinneringBewerkenView(naaste: naaste, herinnering: herinnering, zaak: herinnering.zaak)
         }
+        .agendaScherm($agenda)
         .overlay {
             if herinneringen.isEmpty {
                 ContentUnavailableView {
@@ -196,6 +205,7 @@ struct HerinneringBewerkenView: View {
     @State private var notitie = ""
     @State private var afgerond = false
     @State private var bevestigVerwijderen = false
+    @State private var agenda: AgendaItem?
 
     static let voorafKeuzes = [0, 1, 2, 3, 7, 14, 30, 60]
 
@@ -252,7 +262,16 @@ struct HerinneringBewerkenView: View {
                         .lineLimit(1...5)
                 }
 
-                if herinnering != nil {
+                if let herinnering {
+                    Section {
+                        Button {
+                            agenda = AgendaItem(herinnering: herinnering)
+                        } label: {
+                            Label("Zet in agenda", systemImage: "calendar.badge.plus")
+                        }
+                    } footer: {
+                        Text("Bewaar eerst als je de datum net hebt gewijzigd.")
+                    }
                     Section {
                         Toggle(herhaling == .geen ? "Afgerond" : "Gestopt", isOn: $afgerond)
                         Button("Herinnering verwijderen", role: .destructive) {
@@ -280,6 +299,7 @@ struct HerinneringBewerkenView: View {
                 }
             }
             .onAppear(perform: laad)
+            .agendaScherm($agenda)
         }
         .interactiveDismissDisabled()
     }

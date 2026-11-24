@@ -103,6 +103,7 @@ final class Vergrendeling {
         if await controleer(reden: String(localized: "Ontgrendel Naaste om je gegevens te zien.")) {
             vergrendeld = false
             werkVensterBij(actief: true)
+            Navigatie.shared.gaVerderNaOntgrendelen()
         }
     }
 

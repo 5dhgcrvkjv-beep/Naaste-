@@ -4,13 +4,26 @@ import SwiftUI
 
 /// Tabblad Zaken: aanvragen en dossiers (Wmo, Wlz, pgb …), gegroepeerd op wie er aan zet is.
 struct ZakenView: View {
+    @Environment(AppModel.self) private var app
+    @State private var pad = NavigationPath()
+    private let navigatie = Navigatie.shared
+
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $pad) {
             MetGeselecteerdeNaaste { naaste in
                 ZakenLijst(naaste: naaste)
                     .id(naaste.objectID)
             }
             .navigationTitle("Zaken")
+        }
+        .onChange(of: navigatie.open, initial: true) { _, bestemming in
+            guard case let .zaak(id) = bestemming else { return }
+            navigatie.open = nil
+            if let zaak = Navigatie.zoek(Zaak.self, uuid: id, in: app.context) {
+                var nieuwPad = NavigationPath()
+                nieuwPad.append(zaak)
+                pad = nieuwPad
+            }
         }
     }
 }

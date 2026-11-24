@@ -59,6 +59,9 @@
     "%lld dagen van tevoren" : {
 
     },
+    "%lld documenten" : {
+
+    },
     "%lld jaar" : {
 
     },
@@ -66,6 +69,9 @@
 
     },
     "%lld min" : {
+
+    },
+    "%lld naasten" : {
 
     },
     "%lld open taken" : {
@@ -93,7 +99,13 @@
     "1 dag van tevoren" : {
 
     },
+    "1 document" : {
+
+    },
     "1 maand van tevoren" : {
+
+    },
+    "1 naaste" : {
 
     },
     "1 naaste, %lld documenten, delen met 1 persoon en het overdrachtsoverzicht." : {
@@ -195,6 +207,9 @@
     "Alles staat op je iPhone en in je eigen iCloud. Naaste heeft geen eigen server, geen account en geen tracking. Het is geen medische app: medische zaken blijven bij de huisarts." : {
 
     },
+    "Alles uit deze reservekopie stond al op deze iPhone. Er is niets veranderd." : {
+
+    },
     "Alles wat nergens anders past" : {
 
     },
@@ -231,7 +246,22 @@
     "Betaling" : {
 
     },
+    "Beveiliging" : {
+
+    },
+    "Bevestig om de vergrendeling aan te zetten." : {
+
+    },
+    "Bevestig om de vergrendeling uit te zetten." : {
+
+    },
     "Bewaar" : {
+
+    },
+    "Bewaar eerst als je de datum net hebt gewijzigd." : {
+
+    },
+    "Bewaar het wachtwoord goed, bijvoorbeeld in de app Wachtwoorden. Ben je het kwijt, dan kan niemand de kopie meer openen, ook Naaste niet." : {
 
     },
     "Bezwaar" : {
@@ -354,6 +384,18 @@
     "De gedeelde opslag is nog niet klaar. Probeer het straks opnieuw." : {
 
     },
+    "De kopie bevat je eigen naasten met documenten, zaken, taken en uren. Na het maken kies je waar je hem bewaart, bijvoorbeeld in iCloud Drive of op een USB-stick." : {
+
+    },
+    "De reservekopie is bewaard." : {
+
+    },
+    "De reservekopie kon niet worden gemaakt. Probeer het opnieuw." : {
+
+    },
+    "De reservekopie kon niet worden teruggezet. Probeer het opnieuw." : {
+
+    },
     "De scan kon niet worden opgeslagen. Probeer het opnieuw." : {
 
     },
@@ -373,6 +415,9 @@
 
     },
     "De voorbeeld-naaste kun je niet delen. Voeg je eigen naaste toe om samen met familie te werken." : {
+
+    },
+    "De wachtwoorden zijn niet hetzelfde." : {
 
     },
     "De wijziging komt in de tijdlijn, met datum en wie het deed." : {
@@ -405,6 +450,9 @@
     "Delen met familie" : {
 
     },
+    "Delen werkt niet in deze testversie zonder iCloud." : {
+
+    },
     "Details van %@" : {
 
     },
@@ -414,10 +462,28 @@
     "Deze maand" : {
 
     },
+    "Deze reservekopie is beveiligd met een wachtwoord." : {
+
+    },
+    "Deze reservekopie is beveiligd. Vul het wachtwoord in dat je bij het maken koos." : {
+
+    },
+    "Deze reservekopie is gemaakt met een nieuwere versie van Naaste. Werk de app bij en probeer het opnieuw." : {
+
+    },
+    "Deze testversie bewaart alles alleen op deze iPhone. Maak af en toe een reservekopie in Bestanden, dan raak je niets kwijt als je de app verwijdert." : {
+
+    },
+    "Deze testversie werkt zonder iCloud. Delen met familie kan pas in de versie uit de App Store of TestFlight." : {
+
+    },
     "Deze zorgmap verlaten" : {
 
     },
     "Deze zorgmap verlaten?" : {
+
+    },
+    "Dit bestand is geen reservekopie van Naaste." : {
 
     },
     "Dit document wordt nog uit iCloud gehaald. Controleer of je verbinding hebt." : {
@@ -472,6 +538,9 @@
 
     },
     "E-mail" : {
+
+    },
+    "Een kopie van je eigen naasten met documenten, zaken, taken en uren, als één bestand in Bestanden. Terugzetten voegt alleen toe wat ontbreekt." : {
 
     },
     "Een overzicht op papier of als PDF voor wie het even overneemt: een broer of zus, de buurvrouw of de casemanager." : {
@@ -666,6 +735,9 @@
     "Heeft de eigenaar Naaste Plus, dan geldt dat ook voor wie meedoet." : {
 
     },
+    "Herhaal wachtwoord" : {
+
+    },
     "Herhalen" : {
 
     },
@@ -696,10 +768,16 @@
     "Het abonnement wordt automatisch verlengd voor dezelfde periode en prijs, tenzij je het uiterlijk 24 uur voor het einde van de lopende periode opzegt. Na een gratis proefperiode wordt het abonnementsbedrag in rekening gebracht, tenzij je vóór het einde van de proef opzegt. De betaling loopt via je Apple ID." : {
 
     },
+    "Het bestand kon niet worden gelezen." : {
+
+    },
     "Het document verdwijnt ook bij familieleden met wie je deze naaste deelt." : {
 
     },
     "Het overzicht wordt op je iPhone gemaakt. Jij kiest met wie je het deelt." : {
+
+    },
+    "Het wachtwoord klopt niet." : {
 
     },
     "Houd bij wie hoeveel tijd besteedt aan de zorg: administratie, vervoer, boodschappen. Handig om het werk eerlijk te verdelen en voor de mantelzorgwaardering van de gemeente." : {
@@ -849,7 +927,13 @@
     "Lopende zaken" : {
 
     },
+    "Maak" : {
+
+    },
     "Maak overzicht" : {
+
+    },
+    "Maak zonder wachtwoord" : {
 
     },
     "maand" : {
@@ -906,6 +990,9 @@
     "Met tijdstip" : {
 
     },
+    "Minstens %lld tekens." : {
+
+    },
     "Minuten" : {
 
     },
@@ -930,6 +1017,9 @@
     "Naaste helpt families met de administratie rond een ouder of naaste: brieven, aanvragen, afspraken en wie wat doet." : {
 
     },
+    "Naaste is vergrendeld" : {
+
+    },
     "Naaste kan je gegevens nu niet openen. Maak wat opslagruimte vrij op je iPhone en start de app opnieuw. Je gegevens in iCloud blijven bewaard." : {
 
     },
@@ -949,6 +1039,9 @@
 
     },
     "Naaste verwijderen?" : {
+
+    },
+    "Naaste vraagt om %@ als je de app opent. In de app-kiezer is de inhoud verborgen en je gegevens verschijnen niet in Spotlight." : {
 
     },
     "Niemand" : {
@@ -1030,6 +1123,15 @@
 
     },
     "Onbeperkt naasten en documenten" : {
+
+    },
+    "Ontgrendel met %@" : {
+
+    },
+    "Ontgrendel Naaste om je gegevens te zien." : {
+
+    },
+    "Ontgrendelen is niet gelukt. Probeer het opnieuw." : {
 
     },
     "Ontkoppel" : {
@@ -1190,6 +1292,15 @@
     "Rechten wijzigen of stoppen met delen" : {
 
     },
+    "Reservekopie" : {
+
+    },
+    "Reservekopie maken" : {
+
+    },
+    "Reservekopie terugzetten" : {
+
+    },
     "Rol" : {
 
     },
@@ -1232,6 +1343,9 @@
     "Status: %@" : {
 
     },
+    "Stel eerst een toegangscode in op je iPhone (Instellingen → Face ID en toegangscode)." : {
+
+    },
     "Stop" : {
 
     },
@@ -1268,6 +1382,16 @@
     "Terug naar voorbereiden" : {
 
     },
+    "Teruggezet: %@ en %@, met hun zaken, taken en uren." : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Teruggezet: %1$@ en %2$@, met hun zaken, taken en uren."
+          }
+        }
+      }
+    },
     "Thuiszorg" : {
 
     },
@@ -1283,6 +1407,9 @@
     "Titel, bijv. Beschikking Wmo" : {
 
     },
+    "toegangscode" : {
+
+    },
     "Toegekend" : {
 
     },
@@ -1296,6 +1423,9 @@
 
     },
     "Totaal" : {
+
+    },
+    "uiterlijk %@" : {
 
     },
     "uitgenodigd" : {
@@ -1352,6 +1482,9 @@
 
     },
     "vandaag" : {
+
+    },
+    "Vergrendel met %@" : {
 
     },
     "Verlaat" : {
@@ -1474,6 +1607,9 @@
     "Wachten op de instantie" : {
 
     },
+    "Wachtwoord" : {
+
+    },
     "Wanneer moet er weer iets gebeuren? Bijv. nabellen als er na 6 weken nog geen bericht is." : {
 
     },
@@ -1582,6 +1718,18 @@
     "Zaken" : {
 
     },
+    "Zet deadline in agenda" : {
+
+    },
+    "Zet in agenda" : {
+
+    },
+    "Zet terug" : {
+
+    },
+    "Zet vervolg in agenda" : {
+
+    },
     "Zo werkt het" : {
 
     },
@@ -1595,6 +1743,9 @@
 
     },
     "Zonder abonnement blijft Naaste gratis te gebruiken: 1 naaste, 15 documenten, delen met 1 persoon en het overdrachtsoverzicht." : {
+
+    },
+    "Zonder wachtwoord kan iedereen die het bestand krijgt je documenten lezen." : {
 
     },
     "Zorgmap van %@" : {

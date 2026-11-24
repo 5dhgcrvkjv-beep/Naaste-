@@ -54,6 +54,35 @@
 			</dict>
 		</dict>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>nl.naaste.scan</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Scan een brief</string>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>doc.viewfinder</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>nl.naaste.taak</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Nieuwe taak</string>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>checklist</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>nl.naaste.uren</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Uren schrijven</string>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>clock</string>
+		</dict>
+	</array>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>Naaste zet alleen afspraken en deadlines in je agenda als jij daarom vraagt.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

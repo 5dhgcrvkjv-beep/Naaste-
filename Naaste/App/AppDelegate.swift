@@ -27,9 +27,18 @@ final class SceneDelegate: NSObject, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             MainActor.assumeIsolated { Vergrendeling.shared.koppel(windowScene) }
         }
+        if let item = connectionOptions.shortcutItem {
+            MainActor.assumeIsolated { _ = Navigatie.shared.voerUit(item) }
+        }
         if let metadata = connectionOptions.cloudKitShareMetadata {
             accepteer(metadata)
         }
+    }
+
+    /// Snelle actie op het app-icoon terwijl de app al draaide.
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        let gelukt = MainActor.assumeIsolated { Navigatie.shared.voerUit(shortcutItem) }
+        completionHandler(gelukt)
     }
 
     /// Uitnodiging geopend terwijl de app al draaide.

@@ -4,13 +4,26 @@ import SwiftUI
 
 /// Tabblad Documenten: mappen per categorie, recent toegevoegd en zoeken in alle tekst.
 struct DocumentenView: View {
+    @Environment(AppModel.self) private var app
+    @State private var pad = NavigationPath()
+    private let navigatie = Navigatie.shared
+
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $pad) {
             MetGeselecteerdeNaaste { naaste in
                 DocumentenKluis(naaste: naaste)
                     .id(naaste.objectID)
             }
             .navigationTitle("Documenten")
+        }
+        .onChange(of: navigatie.open, initial: true) { _, bestemming in
+            guard case let .document(id) = bestemming else { return }
+            navigatie.open = nil
+            if let document = Navigatie.zoek(Document.self, uuid: id, in: app.context) {
+                var nieuwPad = NavigationPath()
+                nieuwPad.append(document)
+                pad = nieuwPad
+            }
         }
     }
 }
@@ -39,7 +52,7 @@ private struct DocumentenKluis: View {
         .searchable(text: $zoekterm, prompt: "Zoek in titels en tekst")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                DocumentToevoegenKnop(naaste: naaste, categorie: .overig)
+                DocumentToevoegenKnop(naaste: naaste, categorie: .overig, voertSnelkoppelingUit: true)
             }
         }
         .navigationDestination(for: DocumentCategorie.self) { categorie in
@@ -244,6 +257,8 @@ struct DocumentToevoegenKnop: View {
     @ObservedObject var naaste: Naaste
     let categorie: DocumentCategorie
     var groot = false
+    /// Alleen de knop in de navigatiebalk reageert op de snelle actie "Scan een brief".
+    var voertSnelkoppelingUit = false
 
     @Environment(AppModel.self) private var app
     @State private var scannen = false
@@ -273,6 +288,13 @@ struct DocumentToevoegenKnop: View {
             }
         }
         .modifier(KnopStijl(groot: groot))
+        .onChange(of: Navigatie.shared.open, initial: true) { _, bestemming in
+            guard voertSnelkoppelingUit, bestemming == .scan else { return }
+            Navigatie.shared.open = nil
+            guard app.magDocumentToevoegen(bij: naaste) else { return }
+            // Zonder camera (bijv. in de simulator) dan maar importeren.
+            if DocumentScanner.isBeschikbaar { scannen = true } else { importeren = true }
+        }
         .fullScreenCover(isPresented: $scannen) {
             DocumentScanner { paginas in
                 scannen = false

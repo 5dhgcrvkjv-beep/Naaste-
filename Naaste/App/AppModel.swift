@@ -28,6 +28,7 @@ final class AppModel {
     let delen: Delen
 
     var paywall: PaywallAanleiding?
+    @ObservationIgnored var spotlightTaak: Task<Void, Never>?
     var foutmelding: String?
 
     init(persistence: PersistenceController, entitlements: EntitlementStore, meldingen: Meldingen? = nil) {
@@ -100,6 +101,7 @@ final class AppModel {
         do {
             try persistence.bewaar()
             planMeldingen()
+            werkSpotlightBij()
             return true
         } catch {
             foutmelding = String(localized: "Je wijziging kon niet worden opgeslagen. Probeer het opnieuw. Blijft dit gebeuren, controleer dan of er genoeg opslagruimte vrij is op je iPhone.")

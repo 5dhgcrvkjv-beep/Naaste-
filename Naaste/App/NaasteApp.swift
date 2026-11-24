@@ -1,4 +1,5 @@
 import CoreData
+import CoreSpotlight
 import SwiftUI
 
 @main
@@ -60,15 +61,27 @@ struct RootView: View {
             app.entitlements.start()
             app.herkenOpenstaandeDocumenten()
             app.planMeldingen()
+            app.werkSpotlightBij()
             #if DEBUG
-            if ProcessInfo.processInfo.arguments.contains("-laadVoorbeeld") {
+            let args = ProcessInfo.processInfo.arguments
+            if args.contains("-laadVoorbeeld") {
                 app.laadVoorbeeld()
+            }
+            // `-snelkoppeling nl.naaste.scan` doet alsof je een snelle actie op het app-icoon kiest.
+            if let i = args.firstIndex(of: "-snelkoppeling"), i + 1 < args.count {
+                Navigatie.shared.voerUit(UIApplicationShortcutItem(type: args[i + 1], localizedTitle: ""))
             }
             #endif
         }
         // Wijzigingen van familieleden (via iCloud) of een nieuwe dag: meldingen opnieuw plannen.
         .onReceive(NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange)) { _ in
             app.planMeldingen()
+            app.werkSpotlightBij()
+        }
+        .onContinueUserActivity(CSSearchableItemActionType) { activiteit in
+            if let id = activiteit.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+                Navigatie.shared.open(spotlightID: id)
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: .deelUitnodigingGeaccepteerd)) { bericht in
             let titel = bericht.object as? String ?? String(localized: "de zorgmap")
@@ -105,7 +118,10 @@ enum HoofdTab: String, Hashable {
 }
 
 struct RootTabView: View {
+    @Environment(AppModel.self) private var app
     @State private var tab: HoofdTab = Self.starttab
+    @AppStorage(Opslagsleutel.geselecteerdeNaaste) private var geselecteerdeID = ""
+    private let navigatie = Navigatie.shared
 
     var body: some View {
         TabView(selection: $tab) {
@@ -125,6 +141,33 @@ struct RootTabView: View {
                 InstellingenView()
             }
         }
+        .onChange(of: navigatie.open, initial: true) { _, bestemming in
+            ga(naar: bestemming)
+        }
+    }
+
+    /// Kiest het tabblad (en de naaste) bij een bestemming. Het tabblad zelf opent daarna het juiste scherm.
+    private func ga(naar bestemming: Navigatie.Bestemming?) {
+        guard let bestemming else { return }
+        let naaste: Naaste?
+        switch bestemming {
+        case let .document(id):
+            naaste = Navigatie.zoek(Document.self, uuid: id, in: app.context)?.naaste
+            tab = .documenten
+        case let .zaak(id):
+            naaste = Navigatie.zoek(Zaak.self, uuid: id, in: app.context)?.naaste
+            tab = .zaken
+        case let .taak(id):
+            naaste = Navigatie.zoek(Taak.self, uuid: id, in: app.context)?.naaste
+            tab = .taken
+        case .scan:
+            naaste = nil
+            tab = .documenten
+        case .nieuweTaak, .uren:
+            naaste = nil
+            tab = .taken
+        }
+        if let id = naaste?.uuid?.uuidString { geselecteerdeID = id }
     }
 
     /// Alleen in DEBUG: `-startTab zaken` opent direct een tabblad (handig voor screenshots).
