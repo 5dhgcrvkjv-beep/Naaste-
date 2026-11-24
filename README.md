@@ -52,8 +52,8 @@ Naaste/
   DesignSystem/             gedeelde componenten
   Resources/                Info.plist, String Catalog, Privacy Manifest, StoreKit-config, assets
 NaasteTests/                tests op het datamodel
-site/                       privacybeleid en voorwaarden (GitHub Pages)
-appstore/                   App Store-teksten, privacy-labels, review notes, checklist
+site/                       website: privacybeleid, voorwaarden, hulp (GitHub Pages via .github/workflows/site.yml)
+appstore/                   App Store-teksten, privacy-labels, review notes en de checklist voor indienen
 ```
 
 ## Delen testen
@@ -92,4 +92,4 @@ CloudKit-database niet; `NSPersistentCloudKitContainer` wel (privé- én gedeeld
 | 6 | Delen via CloudKit, stoppen met delen, alle gegevens wissen | ✅ (code; testen op 2 toestellen nodig) |
 | 8 | PDF-exports (uren, overdracht) | ✅ |
 | 9 | Onboarding, toegankelijkheid, laatste controle | ✅ |
-| 10 | App Store-teksten, site, privacy-labels, review notes, checklist | ⏳ |
+| 10 | App Store-teksten, site, privacy-labels, review notes, checklist | ✅ (invullen: zie `appstore/checklist.md`) |
