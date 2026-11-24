@@ -20,6 +20,13 @@ Instellingen → Delen met familie uses UICloudSharingController. Testing requir
 PERMISSIONS
 - Camera: only when the user chooses "Scan een brief" in Documenten (VisionKit document scanner).
 - Notifications: requested only after the user saves a reminder.
+- Face ID: only if the user turns on Instellingen → Beveiliging → "Vergrendel met Face ID" (app lock).
+- Calendar: "Zet in agenda" (long-press a reminder, or on a case with a follow-up date) shows the system EKEventEditViewController. The app never reads the calendar and does not request calendar access.
+
+OTHER FEATURES
+- Spotlight: documents, cases and open tasks are indexed on-device (CoreSpotlight). Disabled while the app lock is on.
+- Home screen quick actions: Scan een brief, Nieuwe taak, Uren schrijven.
+- Backup: Instellingen → Reservekopie exports a file the user saves via the Files app, optionally password-encrypted (AES-GCM). Restoring only adds missing items.
 
 DELETING DATA
 Instellingen → Alle gegevens wissen deletes all data on the device and in iCloud. There is no account to delete.

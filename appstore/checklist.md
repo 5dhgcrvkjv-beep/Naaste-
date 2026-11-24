@@ -10,9 +10,13 @@ Werk van boven naar beneden. Vink af met `[x]`.
       en `site/support.html`.
       Controle: `grep -rn "\[\[" site appstore` geeft niets meer.
 
+- [ ] **Handelaarsstatus (EU, DSA)**: omdat Naaste Plus betaald is, geef je je in App Store Connect op als
+      handelaar. Apple toont dan adres, telefoonnummer en e-mail op de App Store-pagina. Wil je je
+      thuisadres niet tonen, regel dan een zakelijk adres (bijv. via een KvK-inschrijving).
+
 ## 2. Site online
 
-- [ ] GitHub → repo → Settings → Pages → Source: **GitHub Actions**.
+- [x] GitHub → repo → Settings → Pages → Source: **GitHub Actions**.
 - [ ] Workflow "Site publiceren" draait na de volgende push (of start hem via Actions → Run workflow).
 - [ ] Open en controleer:
       https://5dhgcrvkjv-beep.github.io/Naaste-/ ,
@@ -20,6 +24,9 @@ Werk van boven naar beneden. Vink af met `[x]`.
       (deze URL's staan ook in `Naaste/App/AppLinks.swift`).
 
 ## 3. Apple Developer en Xcode
+
+- [ ] Betaald lidmaatschap van het Apple Developer Program (€99 per jaar). Met een gratis Apple ID
+      kan alleen de testversie "Naaste Lokaal" (zonder iCloud) op je eigen iPhone.
 
 - [ ] `DEVELOPMENT_TEAM` invullen in `project.yml` → `xcodegen`.
 - [ ] Bundle-ID `nl.naaste.app` registreren (of een eigen ID; zie README voor de drie plekken).
@@ -76,6 +83,11 @@ De voorbeeld-naaste bevat verzonnen gegevens; die mag je gewoon in de screenshot
 - [ ] Dark mode en de grootste tekstgrootte doorlopen.
 - [ ] VoiceOver: een document toevoegen, een taak afvinken, een zaak openen.
 - [ ] Nieuwe installatie zonder iCloud: app werkt, delen geeft een duidelijke melding.
+- [ ] Face ID-vergrendeling aan: app-kiezer toont het slot, na de achtergrond opnieuw ontgrendelen.
+- [ ] Spotlight: zoek op tekst uit een gescande brief, tik op het resultaat.
+- [ ] Snelle acties op het app-icoon (ook terwijl de app vergrendeld is).
+- [ ] Zet in agenda: herinnering met herhaling, vervolgdatum van een zaak.
+- [ ] Reservekopie met wachtwoord maken, app verwijderen, opnieuw installeren en terugzetten.
 
 ## 8. Archiveren en indienen
 

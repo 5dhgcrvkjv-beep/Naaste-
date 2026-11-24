@@ -19,6 +19,10 @@ om het verzoek in realtime af te handelen. Bij Naaste:
 | Tekstherkenning van documenten | Vision-framework, volledig op het toestel | Nee |
 | Camera (scannen) | VisionKit, resultaat alleen als PDF in de app | Nee |
 | Meldingen | Lokaal gepland (`UNUserNotificationCenter`) | Nee |
+| Face ID / Touch ID | `LocalAuthentication`, alleen ja/nee van iOS | Nee |
+| Spotlight | `CoreSpotlight`, index alleen op het toestel (uit bij vergrendeling) | Nee |
+| Agenda | `EKEventEditViewController`; de gebruiker bevestigt zelf, geen leestoegang | Nee |
+| Reservekopie | Bestand dat de gebruiker zelf bewaart via Bestanden, optioneel versleuteld | Nee |
 | Aankopen | StoreKit 2, afgehandeld door Apple | Nee (alleen de status van het abonnement op het toestel) |
 | Analytics, advertenties, crashrapportage van derden | Niet aanwezig | — |
 | SDK's van derden | Geen | — |
