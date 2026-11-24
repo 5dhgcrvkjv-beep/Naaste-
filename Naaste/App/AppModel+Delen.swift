@@ -17,8 +17,8 @@ extension AppModel {
         Task {
             do {
                 let share = try await delen.maakOfHaalShare(voor: naaste)
-                DeelScherm.toon(share: share, container: delen.ckContainer, titel: naaste.weergaveNaam) { [weak self] gestopt, fout in
-                    guard let self else { return }
+                DeelScherm.toon(share: share, container: delen.ckContainer, titel: naaste.weergaveNaam) { [self] gestopt, fout in
+                    // AppModel leeft zo lang als de app; een sterke verwijzing is hier veilig.
                     if let fout {
                         foutmelding = String(localized: "Delen is niet gelukt: \(fout.localizedDescription)")
                     } else if !gestopt, eigenaar {

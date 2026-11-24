@@ -263,9 +263,29 @@ struct ZaakKorteRij: View {
 struct TaakKorteRij: View {
     @ObservedObject var taak: Taak
     @Environment(AppModel.self) private var app
+    @Environment(\.dynamicTypeSize) private var tekstgrootte
 
     var body: some View {
-        HStack(spacing: 12) {
+        if tekstgrootte.isAccessibilitySize {
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    afvinkKnop
+                    Spacer()
+                    if let lid = taak.toegewezenAan { Avatar(lid: lid, grootte: 28) }
+                }
+                tekst
+            }
+        } else {
+            HStack(spacing: 12) {
+                afvinkKnop
+                tekst
+                Spacer(minLength: 0)
+                if let lid = taak.toegewezenAan { Avatar(lid: lid, grootte: 28) }
+            }
+        }
+    }
+
+    private var afvinkKnop: some View {
             Button {
                 withAnimation { taak.zetAfgerond(!taak.afgerond) }
                 app.bewaar()
@@ -277,7 +297,10 @@ struct TaakKorteRij: View {
             }
             .buttonStyle(.borderless)
             .accessibilityLabel(taak.afgerond ? "Markeer als niet gedaan" : "Markeer als gedaan")
+            .accessibilityValue(taak.weergaveTitel)
+    }
 
+    private var tekst: some View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(taak.weergaveTitel)
                     .strikethrough(taak.afgerond)
@@ -293,11 +316,6 @@ struct TaakKorteRij: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
             }
-            Spacer(minLength: 0)
-            if let lid = taak.toegewezenAan {
-                Avatar(lid: lid, grootte: 28)
-            }
-        }
     }
 }
 
@@ -395,7 +413,7 @@ struct GeenNaasteView: View {
                 Text("Naaste toevoegen")
                     .frame(minWidth: 220, minHeight: 34)
             }
-            .buttonStyle(.borderedProminent)
+            .hoofdknop()
 
             Button {
                 if let voorbeeld = app.laadVoorbeeld() {

@@ -18,6 +18,8 @@ struct PaywallView: View {
             PlusUitleg(aanleiding: aanleiding)
         }
         .subscriptionStoreButtonLabel(.multiline)
+        // Koopknoppen: witte tekst op KnopKleur, ook leesbaar in dark mode.
+        .tint(.knop)
         .storeButton(.visible, for: .restorePurchases)
         .storeButton(.visible, for: .policies)
         .storeButton(.visible, for: .cancellation)

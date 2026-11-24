@@ -45,7 +45,7 @@ struct UrenView: View {
                 Text("Bekijk Naaste Plus")
                     .frame(minWidth: 220, minHeight: 34)
             }
-            .buttonStyle(.borderedProminent)
+            .hoofdknop()
         }
     }
 
@@ -75,6 +75,8 @@ struct UrenView: View {
                 Picker("Periode", selection: $periode) {
                     ForEach(UrenPeriode.allCases) { Text($0.titel).tag($0) }
                 }
+                // Als losse lijst: leesbaar bij elke tekstgrootte (een menu kapt "Deze maand" af).
+                .pickerStyle(.navigationLink)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(Duur.tekst(minuten: totaal))
                         .font(.largeTitle.weight(.semibold))
@@ -185,17 +187,31 @@ private struct PersoonBalk: View {
     let totaal: UrenTotaal
     let kleur: Color
 
+    private var tijdEnAandeel: some View {
+        HStack(spacing: 8) {
+            Text(Duur.tekst(minuten: totaal.minuten))
+                .monospacedDigit()
+            Text(totaal.aandeel, format: .percent.precision(.fractionLength(0)))
+                .foregroundStyle(.secondary)
+                .monospacedDigit()
+                .frame(minWidth: 44, alignment: .trailing)
+        }
+        .lineLimit(1)
+        .fixedSize()
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            HStack {
-                Text(totaal.naam)
-                Spacer()
-                Text(Duur.tekst(minuten: totaal.minuten))
-                    .monospacedDigit()
-                Text(totaal.aandeel, format: .percent.precision(.fractionLength(0)))
-                    .foregroundStyle(.secondary)
-                    .monospacedDigit()
-                    .frame(minWidth: 44, alignment: .trailing)
+            ViewThatFits(in: .horizontal) {
+                HStack {
+                    Text(totaal.naam)
+                    Spacer()
+                    tijdEnAandeel
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(totaal.naam)
+                    tijdEnAandeel
+                }
             }
             GeometryReader { geo in
                 Capsule()
@@ -225,6 +241,7 @@ private struct UrenregelRij: View {
                 Image(systemName: regel.categorieWaarde.symbool)
                     .frame(width: 32, height: 32)
                     .foregroundStyle(.secondary)
+                    .accessibilityHidden(true)
             }
             VStack(alignment: .leading, spacing: 2) {
                 Text(regel.omschrijving?.nietLeeg ?? regel.categorieWaarde.titel)

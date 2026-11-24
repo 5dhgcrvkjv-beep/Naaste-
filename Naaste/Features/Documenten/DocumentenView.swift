@@ -298,7 +298,7 @@ private struct KnopStijl: ViewModifier {
 
     func body(content: Content) -> some View {
         if groot {
-            content.buttonStyle(.borderedProminent)
+            content.hoofdknop()
         } else {
             content
         }

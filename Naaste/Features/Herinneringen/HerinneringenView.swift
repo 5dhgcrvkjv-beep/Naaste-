@@ -98,7 +98,7 @@ struct HerinneringenView: View {
                         Text("Herinnering toevoegen")
                             .frame(minWidth: 220, minHeight: 34)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .hoofdknop()
                 }
             }
         }

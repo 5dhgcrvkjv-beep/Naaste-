@@ -64,7 +64,7 @@ struct OverdrachtView: View {
                         Label("Maak overzicht", systemImage: "doc.richtext")
                             .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .hoofdknop()
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets())
                 } footer: {

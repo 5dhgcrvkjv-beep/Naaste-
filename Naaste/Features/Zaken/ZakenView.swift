@@ -89,7 +89,7 @@ private struct ZakenLijst: View {
                         Text("Zaak toevoegen")
                             .frame(minWidth: 220, minHeight: 34)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .hoofdknop()
                 }
             }
         }
@@ -109,14 +109,19 @@ private struct ZaakLink: View {
 /// Rij met titel, status, wie het oppakt en de vervolgdatum.
 struct ZaakRij: View {
     @ObservedObject var zaak: Zaak
+    @Environment(\.dynamicTypeSize) private var tekstgrootte
 
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image(systemName: zaak.categorieWaarde.symbool)
-                .foregroundStyle(Color.accentColor)
-                .frame(width: 28)
-                .padding(.top, 2)
-                .accessibilityHidden(true)
+        let groot = tekstgrootte.isAccessibilitySize
+        let indeling = groot ? AnyLayout(VStackLayout(alignment: .leading, spacing: 6)) : AnyLayout(HStackLayout(alignment: .top, spacing: 12))
+        indeling {
+            if !groot {
+                Image(systemName: zaak.categorieWaarde.symbool)
+                    .foregroundStyle(Color.accentColor)
+                    .frame(width: 28)
+                    .padding(.top, 2)
+                    .accessibilityHidden(true)
+            }
             VStack(alignment: .leading, spacing: 5) {
                 Text(zaak.weergaveTitel)
                 // Naast elkaar als het past, anders onder elkaar (grote letters, smalle iPhone).
@@ -125,7 +130,7 @@ struct ZaakRij: View {
                     VStack(alignment: .leading, spacing: 4) { statusEnVervolg }
                 }
             }
-            Spacer(minLength: 0)
+            if !groot { Spacer(minLength: 0) }
             if let lid = zaak.opgepaktDoor {
                 Avatar(lid: lid, grootte: 28)
             }
@@ -140,7 +145,7 @@ struct ZaakRij: View {
         if let vervolg = zaak.vervolgdatum, zaak.statusWaarde.isLopend {
             Text("Vervolg \(vervolg.relatief)")
                 .font(.caption)
-                .lineLimit(1)
+                .lineLimit(tekstgrootte.isAccessibilitySize ? nil : 1)
                 .foregroundStyle(vervolg < Calendar.current.startOfDay(for: .now) ? .red : .secondary)
         }
     }

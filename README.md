@@ -37,7 +37,7 @@ Vóór de eerste build op een echte iPhone:
 Alleen in Debug-builds (handig voor screenshots):
 `xcrun simctl launch booted nl.naaste.app -laadVoorbeeld -startTab documenten`
 laadt de voorbeeld-naaste en opent direct een tabblad (`overzicht`, `documenten`, `zaken`, `taken`, `instellingen`).
-Met `-takenWeergave uren` opent het tabblad Taken direct op het urenlogboek.
+Met `-takenWeergave uren` opent het tabblad Taken direct op het urenlogboek, en `-toonOnboarding` toont de kennismaking opnieuw.
 
 ## Structuur
 
@@ -68,6 +68,12 @@ Delen werkt niet in de simulator zonder iCloud-account. Testen kan zo:
 
 Na een wijziging in het datamodel: in het CloudKit Dashboard het schema van Development naar Production zetten vóór de App Store-release.
 
+## Kleuren en contrast
+
+- `AccentColor` (#2F7A55 licht, #6FCF9F donker) is voor tekst, iconen en schakelaars.
+- `KnopKleur` (#2F7A55 licht, #2F8059 donker) is de vulling van hoofdknoppen: gebruik `.hoofdknop()` in plaats van `.buttonStyle(.borderedProminent)`. Witte tekst erop: 5,2:1 en 4,8:1.
+- Wit op #6FCF9F is maar 1,9:1; gebruik die kleur dus nooit als knopvulling.
+
 ## Waarom Core Data en niet SwiftData?
 
 Delen met familie gaat via CloudKit-sharing (CKShare). SwiftData ondersteunt de gedeelde
@@ -85,5 +91,5 @@ CloudKit-database niet; `NSPersistentCloudKitContainer` wel (privé- én gedeeld
 | 5 | Taken en urenlogboek | ✅ |
 | 6 | Delen via CloudKit, stoppen met delen, alle gegevens wissen | ✅ (code; testen op 2 toestellen nodig) |
 | 8 | PDF-exports (uren, overdracht) | ✅ |
-| 9 | Onboarding, toegankelijkheid, laatste controle | ⏳ |
+| 9 | Onboarding, toegankelijkheid, laatste controle | ✅ |
 | 10 | App Store-teksten, site, privacy-labels, review notes, checklist | ⏳ |

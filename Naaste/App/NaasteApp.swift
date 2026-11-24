@@ -7,6 +7,12 @@ struct NaasteApp: App {
     @State private var app: AppModel
 
     init() {
+        #if DEBUG
+        // `-toonOnboarding` laat de kennismaking opnieuw zien (voor testen en screenshots).
+        if ProcessInfo.processInfo.arguments.contains("-toonOnboarding") {
+            UserDefaults.standard.set(false, forKey: Opslagsleutel.onboardingKlaar)
+        }
+        #endif
         let persistence = PersistenceController.shared
         _app = State(initialValue: AppModel(persistence: persistence, entitlements: EntitlementStore()))
     }
@@ -24,6 +30,16 @@ struct RootView: View {
     @Environment(AppModel.self) private var app
     @Environment(\.scenePhase) private var scenePhase
     @State private var geaccepteerd: String?
+    @AppStorage(Opslagsleutel.onboardingKlaar) private var onboardingKlaar = false
+    @FetchRequest(fetchRequest: Naaste.alle()) private var naasten: FetchedResults<Naaste>
+
+    /// Alleen bij de eerste start en zolang er nog geen naaste is (ook niet via iCloud of delen).
+    private var toonOnboarding: Binding<Bool> {
+        Binding(
+            get: { !onboardingKlaar && naasten.isEmpty && app.persistence.laadFout == nil },
+            set: { if !$0 { onboardingKlaar = true } }
+        )
+    }
 
     var body: some View {
         @Bindable var app = app
@@ -33,6 +49,9 @@ struct RootView: View {
             } else {
                 RootTabView()
             }
+        }
+        .fullScreenCover(isPresented: toonOnboarding) {
+            OnboardingView()
         }
         .sheet(item: $app.paywall) { aanleiding in
             PaywallView(aanleiding: aanleiding)

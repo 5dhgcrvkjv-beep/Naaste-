@@ -33,6 +33,7 @@ struct Etiket: View {
     let tekst: String
     var symbool: String?
     var kleur: Color = .secondary
+    @Environment(\.dynamicTypeSize) private var tekstgrootte
 
     var body: some View {
         HStack(spacing: 4) {
@@ -40,9 +41,10 @@ struct Etiket: View {
                 Image(systemName: symbool).accessibilityHidden(true)
             }
             Text(tekst)
-                .lineLimit(1)
+                .lineLimit(tekstgrootte.isAccessibilitySize ? nil : 1)
         }
-        .fixedSize(horizontal: true, vertical: false)
+        // Normaal op één regel; bij heel grote letters mag het afbreken in plaats van buiten beeld te lopen.
+        .fixedSize(horizontal: !tekstgrootte.isAccessibilitySize, vertical: false)
         .font(.caption.weight(.medium))
         .foregroundStyle(kleur)
         .padding(.horizontal, 8)
@@ -114,4 +116,17 @@ extension Date {
     }
 
     var kort: String { formatted(.dateTime.day().month(.abbreviated).year()) }
+}
+
+extension Color {
+    /// Vulling van hoofdknoppen. Donkerder dan de accentkleur in dark mode (#6FCF9F),
+    /// zodat witte tekst erop leesbaar blijft: 5,2:1 (licht) en 4,8:1 (donker).
+    static let knop = Color("KnopKleur")
+}
+
+extension View {
+    /// Gevulde hoofdknop met voldoende contrast in licht en donker.
+    func hoofdknop() -> some View {
+        buttonStyle(.borderedProminent).tint(.knop)
+    }
 }
