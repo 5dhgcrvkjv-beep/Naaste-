@@ -13,6 +13,7 @@ final class Delen {
     enum Fout: LocalizedError {
         case geenICloud
         case geenOpslag
+        case nietInTestversie
 
         var errorDescription: String? {
             switch self {
@@ -20,6 +21,8 @@ final class Delen {
                 String(localized: "Log in bij iCloud (Instellingen → je naam) om te kunnen delen. Delen werkt via je eigen iCloud.")
             case .geenOpslag:
                 String(localized: "De gedeelde opslag is nog niet klaar. Probeer het straks opnieuw.")
+            case .nietInTestversie:
+                String(localized: "Delen werkt niet in deze testversie zonder iCloud.")
             }
         }
     }
@@ -45,7 +48,7 @@ final class Delen {
 
     /// De bestaande share van deze naaste, of `nil` als hij niet gedeeld is.
     func share(van naaste: Naaste) -> CKShare? {
-        guard !persistence.isInMemory, !naaste.objectID.isTemporaryID else { return nil }
+        guard !PersistenceController.zonderICloud, !persistence.isInMemory, !naaste.objectID.isTemporaryID else { return nil }
         do {
             return try persistence.container.fetchShares(matching: [naaste.objectID])[naaste.objectID]
         } catch {
@@ -96,6 +99,8 @@ final class Delen {
     // MARK: Delen
 
     func controleerICloud() async throws {
+        // Zonder iCloud-recht crasht CKContainer(identifier:); daarom eerst deze controle.
+        guard !PersistenceController.zonderICloud else { throw Fout.nietInTestversie }
         let status = try await ckContainer.accountStatus()
         guard status == .available else { throw Fout.geenICloud }
     }
@@ -133,12 +138,14 @@ final class Delen {
 
     /// Alle shares waarin jij deelnemer bent.
     func gedeeldeShares() -> [CKShare] {
+        guard !PersistenceController.zonderICloud else { return [] }
         guard let sharedStore = persistence.sharedStore, !persistence.isInMemory else { return [] }
         return (try? persistence.container.fetchShares(in: sharedStore)) ?? []
     }
 
     /// Alle shares die jij als eigenaar hebt aangemaakt.
     func eigenShares() -> [CKShare] {
+        guard !PersistenceController.zonderICloud else { return [] }
         guard let privateStore = persistence.privateStore, !persistence.isInMemory else { return [] }
         return (try? persistence.container.fetchShares(in: privateStore)) ?? []
     }

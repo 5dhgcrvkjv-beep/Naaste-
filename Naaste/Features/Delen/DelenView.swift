@@ -17,7 +17,12 @@ struct DelenView: View {
 
     var body: some View {
         List {
-            if naaste.isVoorbeeld {
+            if PersistenceController.zonderICloud {
+                Section {
+                    Label("Deze testversie werkt zonder iCloud. Delen met familie kan pas in de versie uit de App Store of TestFlight.", systemImage: "icloud.slash")
+                        .foregroundStyle(.secondary)
+                }
+            } else if naaste.isVoorbeeld {
                 Section {
                     Label("De voorbeeld-naaste kun je niet delen. Voeg je eigen naaste toe om samen met familie te werken.", systemImage: "info.circle")
                         .foregroundStyle(.secondary)

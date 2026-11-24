@@ -68,6 +68,9 @@
     "%lld min" : {
 
     },
+    "%lld open taken" : {
+
+    },
     "%lld pagina's" : {
 
     },
@@ -96,6 +99,9 @@
     "1 naaste, %lld documenten, delen met 1 persoon en het overdrachtsoverzicht." : {
 
     },
+    "1 open taak" : {
+
+    },
     "1 week van tevoren" : {
 
     },
@@ -105,6 +111,9 @@
     "2 weken van tevoren" : {
 
     },
+    "Aandeel" : {
+
+    },
     "Aangevraagd" : {
 
     },
@@ -112,6 +121,9 @@
 
     },
     "Aankopen herstellen" : {
+
+    },
+    "Aantal keer" : {
 
     },
     "Aanvraag is verstuurd" : {
@@ -141,6 +153,9 @@
     "Afspraak" : {
 
     },
+    "Afspraken en deadlines (3 maanden)" : {
+
+    },
     "Al je gegevens zijn gewist." : {
 
     },
@@ -159,6 +174,9 @@
     "alleen bekijken" : {
 
     },
+    "Alleen de lijst; de documenten zelf staan in de app." : {
+
+    },
     "Alleen een notitie voor de familie. Naaste geeft geen medisch advies." : {
 
     },
@@ -166,6 +184,15 @@
 
     },
     "Alles" : {
+
+    },
+    "Alles op één plek" : {
+
+    },
+    "Alles op een rij als PDF, voor wie het even overneemt." : {
+
+    },
+    "Alles staat op je iPhone en in je eigen iCloud. Naaste heeft geen eigen server, geen account en geen tracking. Het is geen medische app: medische zaken blijven bij de huisarts." : {
 
     },
     "Alles wat nergens anders past" : {
@@ -360,6 +387,12 @@
     "Deel" : {
 
     },
+    "Deel de zorgmap met broers, zussen of de buren. Iedereen ziet dezelfde documenten, zaken en taken op de eigen iPhone." : {
+
+    },
+    "Deel of druk af" : {
+
+    },
     "Delen is niet gelukt: %@" : {
 
     },
@@ -426,6 +459,9 @@
     "Documenten" : {
 
     },
+    "Documenten in Naaste" : {
+
+    },
     "Documenten, zaken, taken en uren van deze naaste zijn voor iedereen hetzelfde en blijven bijgewerkt." : {
 
     },
@@ -436,6 +472,9 @@
 
     },
     "E-mail" : {
+
+    },
+    "Een overzicht op papier of als PDF voor wie het even overneemt: een broer of zus, de buurvrouw of de casemanager." : {
 
     },
     "Een voorbeeld met verzonnen gegevens om alle functies te bekijken. Telt niet mee voor de gratis limieten." : {
@@ -483,10 +522,19 @@
     "Er is geen tekst gevonden in dit document." : {
 
     },
+    "Er lopen geen zaken." : {
+
+    },
     "Er lopen geen zaken. Leg een aanvraag vast in het tabblad Zaken." : {
 
     },
+    "Exporteer als PDF" : {
+
+    },
     "Familie" : {
+
+    },
+    "Familie en wie wat doet" : {
 
     },
     "Familie of buren" : {
@@ -561,6 +609,9 @@
     "Geen open taken. Goed bezig!" : {
 
     },
+    "Geen uren in deze periode." : {
+
+    },
     "Gegevens" : {
 
     },
@@ -568,6 +619,15 @@
 
     },
     "Gegevens niet beschikbaar" : {
+
+    },
+    "Gegevens, huisarts en verzekering" : {
+
+    },
+    "Gemaakt met de app Naaste op %@. De uren zijn door de familie zelf bijgehouden." : {
+
+    },
+    "Gemaakt met de app Naaste. Dit overzicht bevat persoonlijke gegevens: deel het alleen met mensen die meehelpen." : {
 
     },
     "Gemeente / Wmo-loket" : {
@@ -637,6 +697,9 @@
 
     },
     "Het document verdwijnt ook bij familieleden met wie je deze naaste deelt." : {
+
+    },
+    "Het overzicht wordt op je iPhone gemaakt. Jij kiest met wie je het deelt." : {
 
     },
     "Houd bij wie hoeveel tijd besteedt aan de zorg: administratie, vervoer, boodschappen. Handig om het werk eerlijk te verdelen en voor de mantelzorgwaardering van de gemeente." : {
@@ -753,7 +816,13 @@
     "Komend" : {
 
     },
+    "Komende 3 maanden" : {
+
+    },
     "Kopieer %@" : {
+
+    },
+    "Laatst gebeurd" : {
 
     },
     "Langdurige zorg en indicatie van het CIZ" : {
@@ -763,6 +832,9 @@
 
     },
     "Leg de gegevens vast van de persoon voor wie je zorgt. Daarna kun je documenten, aanvragen en taken bijhouden, samen met je familie." : {
+
+    },
+    "Lijst van documenten" : {
 
     },
     "Log in bij iCloud (Instellingen → je naam) om te kunnen delen. Delen werkt via je eigen iCloud." : {
@@ -775,6 +847,9 @@
 
     },
     "Lopende zaken" : {
+
+    },
+    "Maak overzicht" : {
 
     },
     "maand" : {
@@ -798,6 +873,9 @@
     "Markeer als niet gedaan" : {
 
     },
+    "Medicatie" : {
+
+    },
     "Medicatie (notitie)" : {
 
     },
@@ -811,6 +889,9 @@
 
     },
     "Meldingen staan uit" : {
+
+    },
+    "Met de hele familie" : {
 
     },
     "Met het urenlogboek zie je wie hoeveel tijd besteedt, handig voor de verdeling en de mantelzorgwaardering van je gemeente." : {
@@ -844,6 +925,9 @@
 
     },
     "Naaste" : {
+
+    },
+    "Naaste helpt families met de administratie rond een ouder of naaste: brieven, aanvragen, afspraken en wie wat doet." : {
 
     },
     "Naaste kan je gegevens nu niet openen. Maak wat opslagruimte vrij op je iPhone en start de app opnieuw. Je gegevens in iCloud blijven bewaard." : {
@@ -933,6 +1017,9 @@
     "OK" : {
 
     },
+    "Omschrijving" : {
+
+    },
     "Omschrijving, bijv. mee naar het ziekenhuis" : {
 
     },
@@ -984,6 +1071,44 @@
     "Over Naaste" : {
 
     },
+    "Overdracht %@" : {
+
+    },
+    "Overdracht %@ %@" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Overdracht %1$@ %2$@"
+          }
+        }
+      }
+    },
+    "Overdrachtsoverzicht" : {
+
+    },
+    "Overdrachtsoverzicht %@" : {
+
+    },
+    "Overdrachtsoverzicht %@ · %@ · vertrouwelijk" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Overdrachtsoverzicht %1$@ · %2$@ · vertrouwelijk"
+          }
+        }
+      }
+    },
+    "Overdrachtsoverzicht maken" : {
+
+    },
+    "Overdrachtsoverzicht, gemaakt op %@" : {
+
+    },
+    "Overgenomen uit de notitie in Naaste. Controleer altijd het actuele medicatieoverzicht van de apotheek." : {
+
+    },
     "Overig" : {
 
     },
@@ -997,6 +1122,12 @@
 
     },
     "Pagina's" : {
+
+    },
+    "pakt %lld zaken op" : {
+
+    },
+    "pakt 1 zaak op" : {
 
     },
     "Pakt het op" : {
@@ -1065,7 +1196,13 @@
     "Roze" : {
 
     },
+    "Samen zorgen, samen regelen" : {
+
+    },
     "Samen zorgen, zonder gedoe met papieren. Plus geeft je alle ruimte." : {
+
+    },
+    "Scan brieven van de gemeente, het CIZ of het CAK en vind ze terug op een woord. Volg aanvragen met een tijdlijn en krijg een seintje vóór een deadline." : {
 
     },
     "Scan een brief" : {
@@ -1074,7 +1211,13 @@
     "Scan een brief of importeer een PDF, zoals een beschikking van de gemeente of de polis van de zorgverzekering. Naaste leest de tekst, zodat je later kunt zoeken." : {
 
     },
+    "Sla over" : {
+
+    },
     "Sleutelkastje naast de voordeur, code bij Sanne. Mevrouw hoort slecht aan de linkerkant: rustig en duidelijk praten." : {
+
+    },
+    "Sluit" : {
 
     },
     "Snel contact" : {
@@ -1096,6 +1239,9 @@
 
     },
     "Straat en huisnummer" : {
+
+    },
+    "Taak" : {
 
     },
     "Taak verwijderen" : {
@@ -1125,6 +1271,9 @@
     "Thuiszorg" : {
 
     },
+    "Tijd" : {
+
+    },
     "Tijdlijn" : {
 
     },
@@ -1146,11 +1295,24 @@
     "Toon" : {
 
     },
+    "Totaal" : {
+
+    },
     "uitgenodigd" : {
 
     },
     "Uren" : {
 
+    },
+    "Uren %@ %@" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Uren %1$@ %2$@"
+          }
+        }
+      }
     },
     "Uren toevoegen" : {
 
@@ -1161,7 +1323,29 @@
     "Urenlogboek voor de onderlinge verdeling en de mantelzorgwaardering" : {
 
     },
+    "Urenoverzicht" : {
+
+    },
+    "Urenoverzicht %@" : {
+
+    },
+    "Urenoverzicht %@ · %@" : {
+      "localizations" : {
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Urenoverzicht %1$@ · %2$@"
+          }
+        }
+      }
+    },
     "Urenoverzicht als PDF" : {
+
+    },
+    "Urenoverzicht mantelzorg" : {
+
+    },
+    "Van jou, niet van ons" : {
 
     },
     "Van mij" : {
@@ -1248,6 +1432,9 @@
     "Voeg je naaste toe" : {
 
     },
+    "Volgende" : {
+
+    },
     "Volgende stap" : {
 
     },
@@ -1290,7 +1477,13 @@
     "Wanneer moet er weer iets gebeuren? Bijv. nabellen als er na 6 weken nog geen bericht is." : {
 
     },
+    "Wat" : {
+
+    },
     "Wat is er gebeurd?" : {
+
+    },
+    "Wat komt erin" : {
 
     },
     "Wat wil je onthouden?" : {

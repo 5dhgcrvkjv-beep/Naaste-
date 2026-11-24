@@ -5,6 +5,12 @@
 #   - DEVELOPMENT_TEAM (je Team ID uit developer.apple.com → Membership)
 #   - eventueel de bundle-ID (ook in Naaste.entitlements en NaasteKit/Entitlements.swift)
 name: Naaste
+configs:
+  Debug: debug
+  Release: release
+  # Testversie op je eigen iPhone met een gratis Apple ID: zonder iCloud, delen en push.
+  # Gebruik het scheme "Naaste Lokaal". De gewone Debug/Release blijven ongewijzigd.
+  Lokaal: debug
 options:
   deploymentTarget:
     iOS: "18.0"
@@ -55,6 +61,12 @@ targets:
         SUPPORTS_MACCATALYST: NO
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
         SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+      configs:
+        Lokaal:
+          PRODUCT_BUNDLE_IDENTIFIER: nl.naaste.app.lokaal
+          CODE_SIGN_ENTITLEMENTS: Naaste/NaasteLokaal.entitlements
+          DEVELOPMENT_TEAM: 46TFZ26RK6 # Personal Team (gratis)
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG LOKAAL
 
   NaasteTests:
     type: bundle.unit-test
@@ -86,3 +98,13 @@ schemes:
         - NaasteTests
     archive:
       config: Release
+
+  Naaste Lokaal:
+    build:
+      targets:
+        NaasteApp: all
+    run:
+      config: Lokaal
+      storeKitConfiguration: Naaste/Resources/Naaste.storekit
+    archive:
+      config: Lokaal

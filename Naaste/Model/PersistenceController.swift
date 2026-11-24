@@ -13,6 +13,15 @@ final class PersistenceController {
     static let shared = PersistenceController()
     static let cloudKitContainerID = "iCloud.nl.naaste.app"
 
+    /// `true` in de configuratie "Lokaal" (testversie voor een gratis Apple ID, zonder iCloud-rechten).
+    static var zonderICloud: Bool {
+        #if LOKAAL
+        true
+        #else
+        false
+        #endif
+    }
+
     /// Het model wordt één keer geladen. Meerdere modellen met dezelfde klassen
     /// (bijv. in tests) geven anders "ambiguous entity"-fouten.
     static let model: NSManagedObjectModel = {
@@ -44,6 +53,14 @@ final class PersistenceController {
             beschrijving.type = NSInMemoryStoreType
             beschrijving.url = URL(fileURLWithPath: "/dev/null")
             beschrijving.cloudKitContainerOptions = nil
+            container.persistentStoreDescriptions = [beschrijving]
+        } else if Self.zonderICloud {
+            // Testversie zonder iCloud (gratis Apple ID): alleen lokale opslag, geen synchronisatie.
+            let beschrijving = NSPersistentStoreDescription(url: NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("prive.sqlite"))
+            beschrijving.cloudKitContainerOptions = nil
+            beschrijving.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+            beschrijving.shouldMigrateStoreAutomatically = true
+            beschrijving.shouldInferMappingModelAutomatically = true
             container.persistentStoreDescriptions = [beschrijving]
         } else {
             let map = NSPersistentContainer.defaultDirectoryURL()
