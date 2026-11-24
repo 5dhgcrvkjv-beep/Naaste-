@@ -5,6 +5,7 @@ enum Opslagsleutel {
     static let geselecteerdeNaaste = "geselecteerdeNaaste"
     static let onboardingKlaar = "onboardingKlaar"
     static let meldingenUitgelegd = "meldingenUitgelegd"
+    static let vergrendeling = "vergrendeling"
 
     /// Welk familielid "ik" ben op deze iPhone, per naaste (alleen lokaal opgeslagen).
     static func ikBen(_ naaste: Naaste) -> String {

@@ -24,6 +24,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 final class SceneDelegate: NSObject, UIWindowSceneDelegate {
     /// Uitnodiging geopend terwijl de app nog niet draaide.
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        if let windowScene = scene as? UIWindowScene {
+            MainActor.assumeIsolated { Vergrendeling.shared.koppel(windowScene) }
+        }
         if let metadata = connectionOptions.cloudKitShareMetadata {
             accepteer(metadata)
         }

@@ -32,6 +32,28 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Naaste gebruikt de camera alleen om brieven en formulieren te scannen voor de documentenkluis. De foto's blijven op je iPhone en in je eigen iCloud.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Met Face ID vergrendel je Naaste, zodat alleen jij je documenten en gegevens kunt zien.</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>nl.naaste.reservekopie</string>
+			<key>UTTypeDescription</key>
+			<string>Reservekopie van Naaste</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>naaste</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

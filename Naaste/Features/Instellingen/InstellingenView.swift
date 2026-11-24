@@ -39,6 +39,8 @@ struct InstellingenView: View {
                     Text("Familieleden zijn naamkaartjes voor taken en uren; daarvoor is geen account nodig. Wil je echt samenwerken, deel dan de zorgmap: iedereen ziet dan dezelfde gegevens op de eigen iPhone.")
                 }
 
+                BeveiligingSectie()
+
                 Section {
                     if naasten.contains(where: \.isVoorbeeld) {
                         Button("Voorbeeld-naaste verwijderen", role: .destructive) {
@@ -67,6 +69,8 @@ struct InstellingenView: View {
                 } footer: {
                     Text("Je gegevens staan alleen op je iPhone en in je eigen iCloud, en bij familieleden met wie je deelt. Naaste heeft geen eigen server, verzamelt geen gegevens en gebruikt geen tracking.")
                 }
+
+                ReservekopieSectie()
 
                 Section {
                     Button(role: .destructive) {
@@ -200,5 +204,104 @@ struct InstellingenView: View {
         let versie = info?["CFBundleShortVersionString"] as? String ?? "1.0"
         let build = info?["CFBundleVersion"] as? String ?? "1"
         return "\(versie) (\(build))"
+    }
+}
+
+/// Vergrendelen met Face ID, Touch ID of toegangscode.
+private struct BeveiligingSectie: View {
+    @State private var vergrendeling = Vergrendeling.shared
+
+    var body: some View {
+        let methode = vergrendeling.methode
+        Section {
+            Toggle(isOn: Binding(
+                get: { vergrendeling.aan },
+                set: { nieuw in Task { await vergrendeling.zet(aan: nieuw) } }
+            )) {
+                Label("Vergrendel met \(vergrendeling.methodeNaam)", systemImage: vergrendeling.methodeSymbool)
+            }
+            .disabled(methode == .geen || vergrendeling.bezig)
+        } header: {
+            Text("Beveiliging")
+        } footer: {
+            if methode == .geen {
+                Text("Stel eerst een toegangscode in op je iPhone (Instellingen → Face ID en toegangscode).")
+            } else {
+                Text("Naaste vraagt om \(vergrendeling.methodeNaam) als je de app opent. In de app-kiezer is de inhoud verborgen.")
+            }
+        }
+    }
+}
+
+/// Reservekopie maken en terugzetten via Bestanden.
+private struct ReservekopieSectie: View {
+    @Environment(AppModel.self) private var app
+    @State private var bestand: ReservekopieBestand?
+    @State private var exporteren = false
+    @State private var importeren = false
+    @State private var melding: String?
+
+    var body: some View {
+        Section {
+            Button {
+                if let kopie = app.maakReservekopie() {
+                    bestand = ReservekopieBestand(data: kopie.data)
+                    exporteren = true
+                }
+            } label: {
+                Label("Reservekopie maken", systemImage: "square.and.arrow.up")
+            }
+            Button {
+                importeren = true
+            } label: {
+                Label("Reservekopie terugzetten", systemImage: "square.and.arrow.down")
+            }
+        } header: {
+            Text("Reservekopie")
+        } footer: {
+            Text(PersistenceController.zonderICloud
+                ? "Deze testversie bewaart alles alleen op deze iPhone. Maak af en toe een reservekopie in Bestanden, dan raak je niets kwijt als je de app verwijdert. De kopie is niet versleuteld: bewaar hem op een veilige plek."
+                : "Een kopie van je eigen naasten met documenten, zaken, taken en uren, als één bestand in Bestanden. Terugzetten voegt alleen toe wat ontbreekt. De kopie is niet versleuteld: bewaar hem op een veilige plek.")
+        }
+        .fileExporter(
+            isPresented: $exporteren,
+            document: bestand,
+            contentType: .naasteReservekopie,
+            defaultFilename: Reservekopie.bestandsnaam()
+        ) { resultaat in
+            bestand = nil
+            if case .success = resultaat {
+                melding = String(localized: "De reservekopie is bewaard.")
+            }
+        }
+        .fileImporter(isPresented: $importeren, allowedContentTypes: [.naasteReservekopie, .data]) { resultaat in
+            guard case let .success(url) = resultaat else { return }
+            zetTerug(url)
+        }
+        .alert("Reservekopie", isPresented: Binding(get: { melding != nil }, set: { if !$0 { melding = nil } })) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(melding ?? "")
+        }
+    }
+
+    private func zetTerug(_ url: URL) {
+        let toegang = url.startAccessingSecurityScopedResource()
+        defer { if toegang { url.stopAccessingSecurityScopedResource() } }
+        do {
+            let data = try Data(contentsOf: url)
+            let s = try app.zetReservekopieTerug(data)
+            if s.naasten + s.documenten + s.overig == 0 {
+                melding = String(localized: "Alles uit deze reservekopie stond al op deze iPhone. Er is niets veranderd.")
+            } else {
+                let naasten = s.naasten == 1 ? String(localized: "1 naaste") : String(localized: "\(s.naasten) naasten")
+                let documenten = s.documenten == 1 ? String(localized: "1 document") : String(localized: "\(s.documenten) documenten")
+                melding = String(localized: "Teruggezet: \(naasten) en \(documenten), met hun zaken, taken en uren.")
+            }
+        } catch let fout as Reservekopie.Fout {
+            melding = fout.localizedDescription
+        } catch {
+            melding = String(localized: "De reservekopie kon niet worden teruggezet. Probeer het opnieuw.")
+        }
     }
 }
