@@ -17,6 +17,8 @@ struct PaywallView: View {
         SubscriptionStoreView(productIDs: PlusProduct.alle) {
             PlusUitleg(aanleiding: aanleiding)
         }
+        // Keuze jaar/maand altijd in beeld, direct boven de koopknop.
+        .subscriptionStoreControlStyle(.compactPicker, placement: .bottomBar)
         .subscriptionStoreButtonLabel(.multiline)
         // Koopknoppen: witte tekst op KnopKleur, ook leesbaar in dark mode.
         .tint(.knop)
@@ -90,6 +92,8 @@ private struct PlusUitleg: View {
                     .foregroundStyle(.secondary)
             }
         }
+        // Nooit afkappen (verplichte abonnementstekst); dan liever scrollen.
+        .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal)
         .padding(.top, 24)
@@ -129,6 +133,8 @@ private struct PlusUitleg: View {
 private struct Voordeel: View {
     let symbool: String
     let tekst: LocalizedStringKey
+    /// Groeit mee met de tekstgrootte, zodat het icoon niet over de tekst valt.
+    @ScaledMetric(relativeTo: .body) private var icoonBreedte: CGFloat = 36
 
     var body: some View {
         Label {
@@ -136,7 +142,7 @@ private struct Voordeel: View {
         } icon: {
             Image(systemName: symbool)
                 .foregroundStyle(Color.accentColor)
-                .frame(width: 28)
+                .frame(width: icoonBreedte)
         }
         .font(.body)
     }
