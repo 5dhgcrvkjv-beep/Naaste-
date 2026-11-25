@@ -86,7 +86,7 @@ De eerste versie van Naaste. Laat ons gerust weten wat je ervan vindt via de hul
 | Support-URL | https://5dhgcrvkjv-beep.github.io/Naaste-/support.html |
 | Marketing-URL | https://5dhgcrvkjv-beep.github.io/Naaste-/ |
 | Privacybeleid-URL | https://5dhgcrvkjv-beep.github.io/Naaste-/privacy.html |
-| Copyright | 2026 [[AANBIEDER]] |
+| Copyright | 2026 Mitch Overbeek |
 | Leeftijdsclassificatie | 4+ (alle vragen "Nee"; geen medische of behandelinformatie) |
 
 ## Abonnementen (App Store Connect → Abonnementen)

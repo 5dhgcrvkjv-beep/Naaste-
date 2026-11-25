@@ -15,9 +15,9 @@ Werk van boven naar beneden. Vink af met `[x]`.
 
 ## 1. Invullen (verplicht)
 
-- [ ] `[[AANBIEDER]]` vervangen door je naam of bedrijfsnaam (zoals in App Store Connect) in
+- [x] `[[AANBIEDER]]` vervangen door je naam of bedrijfsnaam (zoals in App Store Connect) in
       `site/privacy.html`, `site/voorwaarden.html` en `appstore/teksten.md` (copyright).
-- [ ] `[[E-MAIL]]` vervangen door een supportadres in `site/privacy.html`, `site/voorwaarden.html`
+- [x] `[[E-MAIL]]` vervangen door een supportadres in `site/privacy.html`, `site/voorwaarden.html`
       en `site/support.html`.
       Controle: `grep -rn "\[\[" site appstore` geeft niets meer.
 
@@ -36,12 +36,12 @@ Werk van boven naar beneden. Vink af met `[x]`.
 
 ## 3. Apple Developer en Xcode
 
-- [ ] Betaald lidmaatschap van het Apple Developer Program (€99 per jaar). Met een gratis Apple ID
+- [x] Betaald lidmaatschap van het Apple Developer Program (€99 per jaar). Met een gratis Apple ID
       kan alleen de testversie "Naaste Lokaal" (zonder iCloud) op je eigen iPhone.
 
-- [ ] `DEVELOPMENT_TEAM` invullen in `project.yml` → `xcodegen`.
-- [ ] Bundle-ID `nl.naaste.app` registreren (of een eigen ID; zie README voor de drie plekken).
-- [ ] Capabilities op de App ID: iCloud (CloudKit, container `iCloud.nl.naaste.app`), Push Notifications.
+- [x] `DEVELOPMENT_TEAM` invullen in `project.yml` → `xcodegen`.
+- [x] Bundle-ID `nl.naaste.app` registreren (of een eigen ID; zie README voor de drie plekken).
+- [x] Capabilities op de App ID: iCloud (CloudKit, container `iCloud.nl.naaste.app`), Push Notifications.
 - [ ] In Xcode → Signing & Capabilities: geen rode meldingen.
 - [ ] Eén keer in Xcode bouwen, zodat de String Catalog de nieuwste teksten bevat.
 
@@ -105,7 +105,7 @@ De voorbeeld-naaste bevat verzonnen gegevens; die mag je gewoon in de screenshot
 
 ## 7. Testen op een echt toestel (TestFlight)
 
-- [ ] **TestFlight met familie**: een paar familieleden uitnodigen (maximaal 100 externe testers)
+- [ ] **TestFlight met familie**: een paar familieleden uitnodigen (maximaal 10.000 externe testers, na een korte controle door Apple)
       en een week echt laten gebruiken, vooral delen.
 - [ ] **Oudste iOS-versie**: de app werkt vanaf iOS 18 maar is alleen op iOS 27 getest. Test via
       TestFlight op minstens één iPhone met iOS 18 (bijv. van een familielid).
