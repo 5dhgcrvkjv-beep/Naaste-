@@ -66,7 +66,7 @@ Delen werkt niet in de simulator zonder iCloud-account. Testen kan zo:
 4. Wijzig iets op B en controleer dat het op A verschijnt (kan even duren).
 5. Op B: Delen met familie → Deze zorgmap verlaten. Op A: Rechten wijzigen of stoppen met delen.
 
-Na een wijziging in het datamodel: in het CloudKit Dashboard het schema van Development naar Production zetten vóór de App Store-release.
+Na een wijziging in het datamodel: de Debug-versie één keer op een toestel met iCloud starten met `-maakICloudSchema` en daarna in het CloudKit Dashboard het schema van Development naar Production zetten vóór de App Store-release.
 
 ## Kleuren en contrast
 

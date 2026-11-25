@@ -104,6 +104,47 @@ final class PersistenceController {
         return beschrijving
     }
 
+    #if DEBUG
+    /// Zet alle recordtypen en velden uit het datamodel in de Development-omgeving van CloudKit.
+    /// Zonder dit kent CloudKit alleen velden die ooit zijn ingevuld. Start met `-maakICloudSchema`
+    /// op een toestel met iCloud; daarna in de CloudKit Console naar Production zetten.
+    func maakICloudSchema() {
+        guard !isInMemory, !Self.zonderICloud else { return }
+        let container = container
+        Task.detached {
+            print("ICLOUDSCHEMA start")
+            do {
+                try container.initializeCloudKitSchema(options: [])
+                print("ICLOUDSCHEMA klaar")
+                await Self.controleerICloudSchema()
+            } catch {
+                print("ICLOUDSCHEMA fout: \(error)")
+            }
+        }
+    }
+
+    /// Vraagt CloudKit per recordtype of het bestaat. "Not queryable" betekent: bestaat, zonder index.
+    private static func controleerICloudSchema() async {
+        let ck = CKContainer(identifier: cloudKitContainerID)
+        do { print("ICLOUDSCHEMA account \(try await ck.accountStatus().rawValue) (1 = beschikbaar)") } catch { print("ICLOUDSCHEMA account fout \(error)") }
+        do {
+            let zones = try await ck.privateCloudDatabase.allRecordZones()
+            print("ICLOUDSCHEMA zones \(zones.map(\.zoneID.zoneName))")
+        } catch { print("ICLOUDSCHEMA zones fout \(error)") }
+        let zone = CKRecordZone.ID(zoneName: "com.apple.coredata.cloudkit.zone", ownerName: CKCurrentUserDefaultName)
+        for naam in model.entities.compactMap(\.name).sorted() + ["Bestaat_Niet"] {
+            let type = naam == "Bestaat_Niet" ? naam : "CD_\(naam)"
+            do {
+                let (treffers, _) = try await ck.privateCloudDatabase.records(matching: CKQuery(recordType: type, predicate: NSPredicate(value: true)), inZoneWith: zone, resultsLimit: 1)
+                print("ICLOUDSCHEMA \(type): bestaat (\(treffers.count) gevonden)")
+            } catch let fout as CKError {
+                print("ICLOUDSCHEMA \(type): code \(fout.code.rawValue) \(fout.localizedDescription)")
+            } catch { print("ICLOUDSCHEMA \(type): \(error)") }
+        }
+        print("ICLOUDSCHEMA controle klaar")
+    }
+    #endif
+
     // MARK: - Opslaan
 
     /// Slaat wijzigingen op; bij een fout worden de wijzigingen teruggedraaid.

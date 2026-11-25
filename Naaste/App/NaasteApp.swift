@@ -67,6 +67,11 @@ struct RootView: View {
             if args.contains("-laadVoorbeeld") {
                 app.laadVoorbeeld()
             }
+            // `-maakICloudSchema` zet het volledige schema in CloudKit Development (vóór een release).
+            if args.contains("-maakICloudSchema") {
+                UIApplication.shared.isIdleTimerDisabled = true // niet onderbreken door automatisch slot
+                app.persistence.maakICloudSchema()
+            }
             // `-snelkoppeling nl.naaste.scan` doet alsof je een snelle actie op het app-icoon kiest.
             if let i = args.firstIndex(of: "-snelkoppeling"), i + 1 < args.count {
                 Navigatie.shared.voerUit(UIApplicationShortcutItem(type: args[i + 1], localizedTitle: ""))
@@ -74,7 +79,8 @@ struct RootView: View {
             #endif
         }
         // Wijzigingen van familieleden (via iCloud) of een nieuwe dag: meldingen opnieuw plannen.
-        .onReceive(NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange)) { _ in
+        // Core Data meldt dit op een achtergrondthread; SwiftUI en AppModel horen op de hoofdthread.
+        .onReceive(NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange).receive(on: DispatchQueue.main)) { _ in
             app.planMeldingen()
             app.werkSpotlightBij()
         }

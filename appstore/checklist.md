@@ -49,7 +49,7 @@ Werk van boven naar beneden. Vink af met `[x]`.
 
 In App Store Connect → **Business** (Agreements, Tax, and Banking):
 
-- [ ] **Paid Apps Agreement** ondertekenen.
+- [x] **Paid Apps Agreement** ondertekenen.
 - [ ] **Bankgegevens**: IBAN, naam precies zoals bij de bank.
 - [ ] **Belastingformulier W-8BEN**: niet in de VS wonend, beroep op het belastingverdrag
       Nederland–VS. Dan houdt Apple geen Amerikaanse belasting in.
@@ -62,9 +62,9 @@ Uitbetaling: maandelijks, ongeveer 33 dagen na het einde van de maand, vanaf een
 
 ## 4. CloudKit
 
-- [ ] App één keer op een echt toestel draaien met iCloud (Development-omgeving), alle soorten
+- [x] App één keer op een echt toestel draaien met iCloud (Development-omgeving), alle soorten
       gegevens aanmaken en delen, zodat het schema compleet is.
-- [ ] CloudKit Console → container → Schema → **Deploy Schema Changes to Production**.
+- [x] CloudKit Console → container → Schema → **Deploy Schema Changes to Production**.
       Zonder deze stap werkt synchroniseren niet in de App Store-versie.
 
 ## 5. App Store Connect
