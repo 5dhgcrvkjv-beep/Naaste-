@@ -61,9 +61,13 @@ Het abonnement wordt automatisch verlengd, tenzij je minstens 24 uur voor het ei
 
 Naaste is geen medische app en geeft geen medisch advies.
 
+Gebruiksvoorwaarden (EULA): https://5dhgcrvkjv-beep.github.io/Naaste-/voorwaarden.html
 Privacybeleid: https://5dhgcrvkjv-beep.github.io/Naaste-/privacy.html
-Gebruiksvoorwaarden: https://5dhgcrvkjv-beep.github.io/Naaste-/voorwaarden.html
 ```
+
+> Apple-richtlijn 3.1.2: bij abonnementen **moet** de link naar de gebruiksvoorwaarden (EULA) in de
+> beschrijving staan (of als eigen EULA in App-informatie → Licentieovereenkomst). Laat deze twee regels
+> dus altijd onderaan staan, in **elke** taal die je in App Store Connect hebt toegevoegd.
 
 ## Trefwoorden (max 100, komma's zonder spaties)
 

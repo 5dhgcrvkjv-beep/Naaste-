@@ -71,6 +71,10 @@ Uitbetaling: maandelijks, ongeveer 33 dagen na het einde van de maand, vanaf een
 
 - [ ] Nieuwe app: naam, primaire taal **Nederlands**, bundle-ID, SKU.
 - [ ] Teksten en URL's uit `appstore/teksten.md` (controle: `python3 appstore/controleer.py`).
+- [ ] **Beschrijving eindigt op de link "Gebruiksvoorwaarden (EULA): …/voorwaarden.html"** in elke taal
+      (richtlijn 3.1.2; zonder deze link keurt Apple een app met abonnementen af).
+- [ ] App-informatie → **Privacybeleid-URL** ingevuld; Licentieovereenkomst: standaard-EULA van Apple
+      (onze voorwaarden verwijzen daarnaar).
 - [ ] Abonnementsgroep **Naaste Plus** met de twee producten uit `teksten.md`
       (product-ID's exact gelijk aan `NaasteKit/Sources/NaasteKit/Entitlements.swift`),
       prijzen, introductieaanbod, lokalisatie en een **review-screenshot van de paywall**.
